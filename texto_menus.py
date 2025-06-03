@@ -56,6 +56,12 @@ def opciones_profesores():
     return opcion
 
 
+def error_archivo():
+    print()
+    print('!','='*15,'!')
+    print('No se ha podido acceder al archivo\nVerifique su integridad o existencia')
+    print('!','='*15,'!')
+    print()
 
 
 

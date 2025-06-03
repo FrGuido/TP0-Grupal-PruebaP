@@ -3,17 +3,17 @@ import re
 #validacion de dni
 def valid_dni():
     while True:
-        dni = (input('> '))
+        dni = (input('>>> '))
         if len(dni) == 8 and dni.isdigit(): #El DNI debe tener 8 digitos
             return int(dni)
         else:
-            print('Ingreso un DNI invalido, intente nuevamente') #Mensaje de correccion
+            print('Ingreso un DNI invalido, intente nuevamente, sin puntos, guiones ni espacios\n') #Mensaje de correccion
 
 #validacion de mail
 def valid_mail():
     while True:
         validez = r'^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ\.-]+@[a-zA-Z0-9\.-]+\.\w{2,4}$' #Caracteres validos para el mail
-        mail = input("> ")
+        mail = input(">>> ")
         if re.match(validez, mail) is not None:
             return mail
         else:
@@ -23,7 +23,7 @@ def valid_mail():
 def valid_pasw():
     print('La contraseña debe tener al menos un carcter en mayuscula,\nun numero, un simbolo y al menos 10 caracteres')
     while True:
-        contra = input('> ')
+        contra = input('>>> ')
         if len(contra) < 10 or not re.search(r'[A-Z]',contra) or not re.search(r'\d', contra) or not re.search(r'[^A-Za-z0-9]', contra):
             print('Contraseña no valida, intente de nuevo')
         else:
@@ -34,16 +34,16 @@ def valid_pasw():
 def valid_telefono():   
     while True:
         validez = r'^11\d{8}$'
-        tel = input("> ")
+        tel = input(">>> ")
         if re.match(validez, tel) is not None:
             return tel
         else:
             print("Formato de telefono inválido. Intente nuevamente.\n")
 
 #validcion de fecha
-def pedirFecha():
+def valid_fecha():
     while True: #bucle, termina cuando se ingrese una fecha valida
-        fecha = input("Ingrese una fecha en formato dd/mm/aaaa: ")
+        fecha = input("Ingrese una fecha en formato dd/mm/aaaa\n>>>")
         f = fecha.split("/")
 
         if len(f) == 3:
@@ -81,9 +81,33 @@ def añoBisiesto(año): #verificacion si el año es bisiesto o no
 #validacion nombre
 def valid_nombre():
     while True:
-        validez = r'^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ]'
-        nombre = input("> ")
-        if re.match(validez, nombre) is not None:
+        validez = r'^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]+(?: [a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]+)*$'
+        nombre = input(">>> ")
+        if re.match(validez, nombre):
             return nombre
         else:
-            print("Formato de nombre inválido. Intente nuevamente.\n")
+            print("Formato de nombre/apellido inválido. Intente nuevamente.\n")
+
+def valid_archivo(archivo):
+    try:
+        open(archivo, "r", encoding="UTF-8")
+        return True
+    except FileNotFoundError:
+        print('El archivo no existe')
+    except PermissionError:
+        print('No se puede acceder al archivo')
+    except OSError:
+        print('Ha ocurrido un error al intentar abrir el archivo')
+    return False
+
+
+
+
+
+
+
+
+
+
+
+

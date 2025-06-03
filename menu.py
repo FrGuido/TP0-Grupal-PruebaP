@@ -1,5 +1,5 @@
 import texto_menus
-
+import profesores
 
 
 
@@ -23,6 +23,7 @@ def menu_admin():
                     break
 
                 elif opcion == "1":
+                    profesores.añadir_profesor()
                     pass
 
                 elif opcion == "2":

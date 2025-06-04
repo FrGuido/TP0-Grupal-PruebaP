@@ -8,7 +8,7 @@ def bienvenida():
 
 def opciones_principal():
     while True:
-        opciones = 4
+        opciones = 5
         print()
         print("-" * 26)
         print("MENÚ PRINCIPAL")
@@ -16,7 +16,8 @@ def opciones_principal():
         print("[1] Gestión de profesores")
         print("[2] Gestión de alumnos")
         print("[3] Gestión de materias")
-        print("[4] Registro de cambios")
+        print("[4] Gestion de cursos")
+        print("[5] Registro de cambios")
         print("-" * 26)
         print("[0] Salir del programa")
         print("-" * 26)
@@ -80,6 +81,60 @@ def opcion_modificar_profesor():
             input("Opción inválida. Presione ENTER para volver a seleccionar.")
 
 
+def opcion_modificar_alumno():
+    while True:
+        opciones = 10
+        print(f'Que desea modificar?')
+        print("---------------------------")
+        print("[1] Nombre")
+        print("[2] Apellido")
+        print("[3] Fecha de Nacimiento")
+        print("[4] DNI")
+        print("[5] Etapa")
+        print("[6] Curso")
+        print("[7] Turno")
+        print("[8] Mail")
+        print("[9] Telefono")
+        print("[10] Contraseña")
+        print("---------------------------")
+        print("[0] Salir")
+        print("---------------------------")
+        print()
+        opcion = input("Seleccione una opción: ")
+        if opcion in [str(i) for i in range(0, opciones + 1)]:
+            return opcion
+        else:
+            input("Opción inválida. Presione ENTER para volver a seleccionar.")
+
+
+
+def opciones_alumno():
+    while True:
+        opciones = 5
+        print()
+        print("---------------------------")
+        print("MENÚ PRINCIPAL > GESTION DE ALUMNOS")
+        print("---------------------------")
+        print("[1] Añadir Alumno")
+        print("[2] Eliminar Alumno")
+        print("[3] Modificar Alumno")
+        print("[4] Modificar Notas Alumno")
+        print("[5] Listar Alumnos Curso")
+        print("---------------------------")
+        print("[0] Volver al menú anterior")
+        print("---------------------------")
+        print()
+
+        opcion = input("Seleccione una opción: ")
+        if opcion in [str(i) for i in range(0, opciones + 1)]:
+            break
+        else:
+            input("Opción inválida. Presione ENTER para volver a seleccionar.")
+    print()
+    return opcion
+
+
+
 def error_archivo():
     print()
     print('!','='*15,'!')
@@ -104,6 +159,67 @@ def imprimir_dic(dic):
         a = f'| {str(key):<20} : {str(valor):>25} |'
         print(a)
     print('-' * 52)
+
+
+def seleccion_turno():
+    while True:
+        print('Que turno desea?')
+        print('-'*15)
+        print('[1] Turno Mañana')
+        print('[2] Turno Tarde')
+        print('-'*15)
+        turno = input('>')
+        if turno == '1':
+            return 'Mañana'
+        elif turno == '2':
+            return 'Tarde'
+        else:
+            print('Ingrese un valor valido, intente de nuevo\n-----------\n')
+
+
+def seleccion_curso():
+    while True:
+        print('Que curso desea ingresar?')
+        print('-'*15)
+        print('[1] Primer Grado/Año')
+        print('[2] Segundo Grado/Año')
+        print('[3] Tercer Grado/Año')
+        print('[4] Cuarto Grado/Año')
+        print('[5] Quinto Grado/Año')
+        print('[6] Sexto Grado/Año')
+        print('-'*15)
+        turno = input('>')
+        if turno == '1':
+            return '1ro'
+        elif turno == '2':
+            return '2ro'
+        elif turno == '3':
+            return '3ro'
+        elif turno == '4':
+            return '4ro'
+        elif turno == '5':
+            return '5ro'
+        elif turno == '6':
+            return '6ro'
+        else:
+            print('Ingrese una opcion valida\n-----------\n')
+
+
+def seleccion_etapa():
+    while True:
+        print('Que etapa desea?')
+        print('-'*15)
+        print('[1] Educacion Primaria')
+        print('[2] Educacion Secundaria')
+        print('-'*15)
+        turno = input('>')
+        if turno == '1':
+            return 'Primario'
+        elif turno == '2':
+            return 'Secundario'
+        else:
+            print('Ingrese un valor valido, intente de nuevo\n-----------\n')
+
 
 
 

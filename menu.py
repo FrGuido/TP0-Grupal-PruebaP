@@ -32,13 +32,16 @@ def menu_admin():
                 
                 #modificar profesor
                 elif opcion == "3":
-                    pass
+                    profesores.modificar_profesor()
                 
                 #modificar materias profesor
                 elif opcion == "4":
                     pass
 
+                #lista profesores
+                elif opcion == "5":
+                    profesores.listar_profesores()
 
-
+menu_admin()
 
 

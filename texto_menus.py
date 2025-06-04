@@ -33,7 +33,7 @@ def opciones_principal():
 
 def opciones_profesores():
     while True:
-        opciones = 4
+        opciones = 5
         print()
         print("---------------------------")
         print("MENÚ PRINCIPAL > GESTION DE PROFESORES")
@@ -42,6 +42,7 @@ def opciones_profesores():
         print("[2] Eliminar Profesor")
         print("[3] Modificar Profesor")
         print("[4] Modificar Materias Profesor")
+        print("[5] Lista Profesores")
         print("---------------------------")
         print("[0] Volver al menú anterior")
         print("---------------------------")
@@ -56,6 +57,29 @@ def opciones_profesores():
     return opcion
 
 
+def opcion_modificar_profesor():
+    while True:
+        opciones = 7
+        print(f'Que desea modificar?')
+        print("---------------------------")
+        print("[1] Nombre")
+        print("[2] Apellido")
+        print("[3] Fecha de Nacimiento")
+        print("[4] DNI")
+        print("[5] Mail")
+        print("[6] Telefono")
+        print("[7] Contraseña")
+        print("---------------------------")
+        print("[0] Salir")
+        print("---------------------------")
+        print()
+        opcion = input("Seleccione una opción: ")
+        if opcion in [str(i) for i in range(0, opciones + 1)]:
+            return opcion
+        else:
+            input("Opción inválida. Presione ENTER para volver a seleccionar.")
+
+
 def error_archivo():
     print()
     print('!','='*15,'!')
@@ -66,8 +90,7 @@ def error_archivo():
 
 def confirmacion_user():
     while True:
-        print('\nSeguro que desea eliminar este elemento?\n')
-        rta = input('Ingrese "S" para eliminar\nIngrese "N" para no eliminar\n>>')
+        rta = input('Ingrese "S" para si\nIngrese "N" para no\n>>')
         print()
         if rta.lower() == 's' or rta.lower() == 'n':
             return rta
@@ -75,13 +98,12 @@ def confirmacion_user():
             print('Ingrese uno de los valores indicados\n-----------------\n')
 
 
-
-
-
-
-
-
-
+def imprimir_dic(dic):
+    print('=' * 52)
+    for key, valor in dic.items():
+        a = f'| {str(key):<20} : {str(valor):>25} |'
+        print(a)
+    print('-' * 52)
 
 
 

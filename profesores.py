@@ -8,6 +8,7 @@ def cargar_archivo_json(ruta,datos):
     with open(ruta, "w", encoding="UTF-8") as j:
         json.dump(datos, j, indent=2, ensure_ascii=False)
 
+
 def cargar_esqueleto():
     prof = {}
     print("\n" + "=" * 50)
@@ -54,8 +55,10 @@ def añadir_profesor():
         with open(archivo, "r", encoding="UTF-8") as j:
             try:
                 datos = json.load(j)
+
             except json.JSONDecodeError:
                 datos = []
+
         datos.append(cargar_esqueleto())
 
         cargar_archivo_json(archivo,datos)
@@ -68,20 +71,98 @@ def añadir_profesor():
 
 
 def buscar_profesor(dni):
-    with open('profesores.json','r',encoding="UTF-8"):
-        datos = json.load()
+    with open('profesores.json','r',encoding="UTF-8") as j:
+        datos = json.load(j)
         for i in datos:
             if i['dni'] == dni:
                 return i
         else:
             print('No se encontro al profesor de ese DNI\n')
+            return None
 
 
 def modificar_profesor():
     if validar.valid_archivo(archivo):
-        pass
+        while True:
+            dni = validar.pedir_dni()
+            prof = buscar_profesor(dni)
+            if prof == None:
+                print('Desea intentarlo de nuevo?')
+                vl = texto_menus.confirmacion_user()
+                if vl == 'n':
+                    return
+            else:
+                break
+            
+        print('Este es el profesor que esta editando\n')
+        texto_menus.imprimir_dic(prof)
+        input('Ingrese enter para continuar')            
+
+        with open(archivo,'r',encoding="UTF-8") as j:
+            datos = json.load(j)
+        for i in datos:
+            if i['dni'] == dni:
+                while True:
+                    opcion = texto_menus.opcion_modificar_profesor()
+
+                    if opcion == '0':
+                        break
+                    
+                    elif opcion == '1':
+                        print("\n" + "=" * 50)
+                        print(f'{"~ Modificando nombre ~".center(50)}')
+                        print(f"{"» Introduzca su nuevo nombre «".center(50)}")
+                        print("-" * 50)
+                        i['nombre'] = validar.valid_nombre()
+
+                    elif opcion == '2':
+                        print("\n" + "=" * 50)
+                        print(f'{"~ Modificando apellido ~".center(50)}')
+                        print(f"{"» Introduzca su nuevo apellido «".center(50)}")
+                        print("-" * 50)
+                        i['apellido'] = validar.valid_nombre()
+
+                    elif opcion == '3':
+                        print("\n" + "=" * 50)
+                        print(f'{"~ Modificando fecha de nacimiento ~".center(50)}')
+                        print(f"{"» Introduzca su nueva fecha «".center(50)}")
+                        print("-" * 50)
+                        prof['fecha_nacimiento'] = validar.valid_fecha()
+
+                    elif opcion == '4':
+                        print("\n" + "=" * 50)
+                        print(f'{"~ Modificando DNI ~".center(50)}')
+                        print(f"{"» Introduzca su DNI «".center(50)}")
+                        print("-" * 50)
+                        i['dni'] = validar.valid_dni(archivo)
+
+                    elif opcion == '5':
+                        print("\n" + "=" * 50)
+                        print(f'{"~ Modificando Email ~".center(50)}')
+                        print(f"{"» Introduzca su nuevo Email «".center(50)}")
+                        print("-" * 50)
+                        i['mail'] = validar.valid_mail()
+
+                    elif opcion == '6':
+                        print("\n" + "=" * 50)
+                        print(f'{"~ Modificando telefono ~".center(50)}')
+                        print(f"{"» Introduzca su nuevo Telefono «".center(50)}")
+                        print("-" * 50)
+                        i['telefono'] = validar.valid_telefono()
+
+                    elif opcion == '7':
+                        print("\n" + "=" * 50)
+                        print(f'{"~ Modificando Contraseña ~".center(50)}')
+                        print(f"{"» Introduzca su nueva Contraseña «".center(50)}")
+                        print("-" * 50)
+                        i['pasw'] = validar.valid_pasw()
+                break
+
+        cargar_archivo_json(archivo,datos)
     else:
         texto_menus.error_archivo()
+
+    input('Volviendo al menu inicial, precione enter')
 
 
 def eliminar_profesor():
@@ -89,6 +170,7 @@ def eliminar_profesor():
         while True:
             try:
                 dni = int(input('Ingrese el DNI del profesor a eliminar\n>> '))
+                print('\nSeguro que desea eliminar este elemento?\n')
                 seg = texto_menus.confirmacion_user()
                 if seg == 's':
                     with open(archivo,'r',encoding="UTF-8") as j:
@@ -110,30 +192,26 @@ def eliminar_profesor():
             except:
                 print('Ingrese numeros\n--------------')
 
+        input('Volviendo al menu inicial, precione enter')
     else:
         texto_menus.error_archivo()
 
+
+
+def listar_profesores():
+    with open(archivo, 'r', encoding="UTF-8") as j:
+        datos = json.load(j)
+    for i in datos:
+        texto_menus.imprimir_dic(i)
+    
+    input('Ingrese enter para volver al menu anterior')
+
+
+
+
 #añadir_profesor()
+#modificar_profesor()
 #eliminar_profesor()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -138,6 +138,13 @@ def tipo_archivo(arch):
         return None
 
 
+def pedir_dni():
+    while True:
+        try:
+            dni = int(input('Ingrese el DNI\n>>'))
+            return dni
+        except:
+            print('Ingrese numeros\n------------\n')
 
 
 

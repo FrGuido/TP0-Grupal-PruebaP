@@ -64,8 +64,15 @@ def error_archivo():
     print()
 
 
-
-
+def confirmacion_user():
+    while True:
+        print('\nSeguro que desea eliminar este elemento?\n')
+        rta = input('Ingrese "S" para eliminar\nIngrese "N" para no eliminar\n>>')
+        print()
+        if rta.lower() == 's' or rta.lower() == 'n':
+            return rta
+        else:
+            print('Ingrese uno de los valores indicados\n-----------------\n')
 
 
 

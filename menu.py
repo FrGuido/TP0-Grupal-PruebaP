@@ -21,17 +21,20 @@ def menu_admin():
 
                 if opcion == "0":
                     break
-
+                
+                #añadir profesor
                 elif opcion == "1":
                     profesores.añadir_profesor()
-                    pass
 
+                #eliminar profesor
                 elif opcion == "2":
-                    pass
-
+                    profesores.eliminar_profesor()
+                
+                #modificar profesor
                 elif opcion == "3":
                     pass
-
+                
+                #modificar materias profesor
                 elif opcion == "4":
                     pass
 

@@ -139,8 +139,3 @@ def tipo_archivo(arch):
 
 
 
-    
-
-
-
-

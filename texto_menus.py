@@ -1,3 +1,6 @@
+from cursos import cursos
+
+
 def bienvenida():
     print('\n'*10)
     print(f'{" Bienvenido al sistema de alumnado © ":-^58}')
@@ -134,6 +137,33 @@ def opciones_alumno():
     return opcion
 
 
+def opciones_tipos_cursos():
+    print('Elija una de las siguientes opciones')
+    opciones = len(cursos)
+    while True:
+        print('-'*15)
+        for i,e in enumerate(cursos):
+            print(f'[{i}] {e}')
+        print('-'*15)
+        opcion = input('>>')
+        if opcion in [str(i) for i in range(1, opciones+1)]:
+            break
+        else:
+            input("Opción inválida. Presione ENTER para volver a seleccionar.")
+    
+    if opcion == '1':
+        return cursos[0]
+    elif opcion == '2':
+        return cursos[1]
+    elif opcion == '3':
+        return cursos[2]
+    elif opcion == '4':
+        return cursos[3]
+    elif opcion == '5':
+        return cursos[4]
+    elif opcion == '6':
+        return cursos[5]
+
 
 def error_archivo():
     print()
@@ -219,7 +249,6 @@ def seleccion_etapa():
             return 'Secundario'
         else:
             print('Ingrese un valor valido, intente de nuevo\n-----------\n')
-
 
 
 

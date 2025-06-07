@@ -1,1 +1,86 @@
-[]
+[
+  {
+    "nombre": "1ro",
+    "max alumnos": 35,
+    "alumnos": [],
+    "materias": [],
+    "turno": "Tarde"
+  },
+  {
+    "nombre": "2do",
+    "max alumnos": 35,
+    "alumnos": [],
+    "materias": [],
+    "turno": "Tarde"
+  },
+  {
+    "nombre": "3ro",
+    "max alumnos": 35,
+    "alumnos": [],
+    "materias": [],
+    "turno": "Tarde"
+  },
+  {
+    "nombre": "4to",
+    "max alumnos": 35,
+    "alumnos": [],
+    "materias": [],
+    "turno": "Tarde"
+  },
+  {
+    "nombre": "5to",
+    "max alumnos": 35,
+    "alumnos": [],
+    "materias": [],
+    "turno": "Tarde"
+  },
+  {
+    "nombre": "6to",
+    "max alumnos": 35,
+    "alumnos": [],
+    "materias": [],
+    "turno": "Tarde"
+  },
+  {
+    "nombre": "1ro",
+    "max alumnos": 35,
+    "alumnos": [],
+    "materias": [],
+    "turno": "Mañana"
+  },
+  {
+    "nombre": "2do",
+    "max alumnos": 35,
+    "alumnos": [],
+    "materias": [],
+    "turno": "Mañana"
+  },
+  {
+    "nombre": "3ro",
+    "max alumnos": 35,
+    "alumnos": [],
+    "materias": [],
+    "turno": "Mañana"
+  },
+  {
+    "nombre": "4to",
+    "max alumnos": 35,
+    "alumnos": [],
+    "materias": [],
+    "turno": "Mañana"
+  },
+  {
+    "nombre": "5to",
+    "max alumnos": 35,
+    "alumnos": [],
+    "materias": [],
+    "turno": "Mañana"
+  },
+  {
+    "nombre": "6to",
+    "max alumnos": 35,
+    "alumnos": [],
+    "materias": [],
+    "turno": "Mañana"
+  }
+]

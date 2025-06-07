@@ -1,4 +1,4 @@
-import texto_menus
+import menu_texto
 import profesores
 
 
@@ -8,7 +8,7 @@ def menu_admin():
     while True:
 
         #menu principal admin
-        opcion = texto_menus.opciones_principal()
+        opcion = menu_texto.opciones_principal()
 
         #salir del programa
         if opcion == "0":
@@ -17,7 +17,7 @@ def menu_admin():
         #gestion profesores
         if opcion == "1":
             while True: 
-                opcion = texto_menus.opciones_profesores()
+                opcion = menu_texto.opciones_profesores()
 
                 if opcion == "0":
                     break
@@ -44,7 +44,7 @@ def menu_admin():
 
         elif opcion == "2":
             while True: 
-                opcion = texto_menus.opciones_alumno()
+                opcion = menu_texto.opciones_alumno()
 
                 if opcion == "0":
                     break

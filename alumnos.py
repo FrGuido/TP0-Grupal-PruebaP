@@ -1,4 +1,4 @@
-import texto_menus
+import menu_texto
 import validar
 import otros
 
@@ -32,17 +32,17 @@ def cargar_esqueleto():
     print("\n" + "=" * 50)
     print(f"{"» Introduzca su Etapa «".center(50)}")
     print("-" * 50)
-    alu['etapa'] = texto_menus.seleccion_etapa()
+    alu['etapa'] = menu_texto.seleccion_etapa()
 
     print("\n" + "=" * 50)
     print(f"{"» Introduzca su Curso «".center(50)}")
     print("-" * 50)
-    alu['curso'] = texto_menus.seleccion_curso()
+    alu['curso'] = menu_texto.seleccion_curso()
 
     print("\n" + "=" * 50)
     print(f"{"» Introduzca su Turno «".center(50)}")
     print("-" * 50)
-    alu['turno'] = texto_menus.seleccion_turno()
+    alu['turno'] = menu_texto.seleccion_turno()
 
     print("\n" + "=" * 50)
     print(f"{"» Introduzca un Telefono «".center(50)}")
@@ -74,7 +74,7 @@ def añadir_alumno():
         input('Se ha ingresado correctamente al alumno\nPresione una tecla para continuar')
 
     else:
-        texto_menus.error_archivo()
+        menu_texto.error_archivo()
 
 def buscar_alumno(dni):
     with open(archivo,'r',encoding="UTF-8") as j:
@@ -93,14 +93,14 @@ def modificar_alumno():
             alu = buscar_alumno(dni)
             if alu == None:
                 print('Desea intentarlo de nuevo?')
-                vl = texto_menus.confirmacion_user()
+                vl = menu_texto.confirmacion_user()
                 if vl == 'n':
                     return
             else:
                 break
             
         print('Este es el alumno que esta editando\n')
-        texto_menus.imprimir_dic(alu)
+        menu_texto.imprimir_dic(alu)
         input('Ingrese enter para continuar')            
 
         with open(archivo,'r',encoding="UTF-8") as j:
@@ -108,7 +108,7 @@ def modificar_alumno():
         for i in datos:
             if i['dni'] == dni:
                 while True:
-                    opcion = texto_menus.opcion_modificar_alumno()
+                    opcion = menu_texto.opcion_modificar_alumno()
 
                     if opcion == '0':
                         break
@@ -146,21 +146,21 @@ def modificar_alumno():
                         print(f'{"~ Modificando Etapa ~".center(50)}')
                         print(f"{"» Introduzca su nueva Etapa «".center(50)}")
                         print("-" * 50)
-                        i['etapa'] = texto_menus.seleccion_etapa()
+                        i['etapa'] = menu_texto.seleccion_etapa()
 
                     elif opcion == '6':
                         print("\n" + "=" * 50)
                         print(f'{"~ Modificando Curso ~".center(50)}')
                         print(f"{"» Introduzca su nuevo Curso «".center(50)}")
                         print("-" * 50)
-                        i['curso'] = texto_menus.seleccion_curso()
+                        i['curso'] = menu_texto.seleccion_curso()
 
                     elif opcion == '7':
                         print("\n" + "=" * 50)
                         print(f'{"~ Modificando Turno ~".center(50)}')
                         print(f"{"» Introduzca su nuevo Turno «".center(50)}")
                         print("-" * 50)
-                        i['turno'] = texto_menus.seleccion_turno()
+                        i['turno'] = menu_texto.seleccion_turno()
 
                     elif opcion == '8':
                         print("\n" + "=" * 50)
@@ -186,7 +186,7 @@ def modificar_alumno():
 
         otros.cargar_archivo_json(archivo,datos)
     else:
-        texto_menus.error_archivo()
+        menu_texto.error_archivo()
 
     input('Volviendo al menu inicial, precione enter')
 
@@ -196,7 +196,7 @@ def eliminar_alumno():
             try:
                 dni = int(input('Ingrese el DNI del alumno a eliminar\n>> '))
                 print('\nSeguro que desea eliminar este elemento?\n')
-                seg = texto_menus.confirmacion_user()
+                seg = menu_texto.confirmacion_user()
                 if seg == 's':
                     with open(archivo,'r',encoding="UTF-8") as j:
                         datos = json.load(j)
@@ -219,7 +219,7 @@ def eliminar_alumno():
 
         input('Volviendo al menu inicial, precione enter')
     else:
-        texto_menus.error_archivo()
+        menu_texto.error_archivo()
 
 
 

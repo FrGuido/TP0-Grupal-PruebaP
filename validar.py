@@ -1,5 +1,9 @@
 import re
 import json
+import menu_texto
+import materias
+import profesores
+import cursos
 
 #validacion de dni
 def valid_dni(arch):
@@ -113,6 +117,124 @@ def valid_nombre():
         else:
             print("Formato de nombre/apellido inválido. Intente nuevamente.\n")
 
+def valid_cant_alumnos(max, cant_alumnos):
+    if valid_archivo(cursos.archivo):
+        try:
+            print('-'*15)
+            print('Cuantos alumnos desea que sean el maximo?')
+            print(f'Actualmente hay {max} de maximo')
+            print('-'*15)
+            num = int(input('>>>'))
+            with open(cursos.archivo, "r", encoding="UTF-8") as j:
+                datos = json.load(j)
+            if cant_alumnos > num:
+                print(f'Hay mas alumnos ya ingresados ({cant_alumnos}) de lo que quiere establecer como maximo ({num})')
+                input('Ingrese un numero mayor o elimine alumnos\nIngrese Enter para continuar')
+            else:
+                print(f'Se ha cambiado el maximo de {max} a {num}\n')
+                input('Ingrese Enter para continuar')
+                return num
+        except:
+            print('Ingrese numeros enteros, Intente nuevamente')
+    else:
+        menu_texto.error_archivo()
+
+def prof_acargo():
+    if valid_archivo(profesores.archivo):
+        print('(Solo se pueden añadir profesores con menos de 3 materias asignadas)')
+        profes = []
+        disp = menu_texto.lista_profesores_disponibles()
+        contador = 0
+        if disp != []:
+            while True:
+                try:
+                    if contador == 5:
+                        print('Ha llegado al limite de profesores')
+                        input('Presione Enter para salir')
+                        break
+                    verif = False
+                    print('\nIngresa el DNI del profesor que deseas añadir')
+                    p = int(input('Ingrese el DNI del profesor a añadir\n>>> '))
+                    for i in profes:
+                        if p in i:
+                            print('Ese profe ya se encuentra en esta materia, elija otro')
+                            verif = True
+                            break
+                    if not verif:
+                        for i in disp:
+                            if p in i:
+                                profes.append(i)
+                                contador += 1
+                                break
+                        else:
+                            print('Ingrese un profesor disponible')
+                        print('Desea ingresar un profesor nuevo?')
+                        if menu_texto.confirmacion_user() == 'n':
+                            break
+
+                except:
+                    print('Ingrese numeros')      
+
+            return profes
+    
+        else:
+            print('No se han encontrado profesores disponibles\nlibere a alguno y edite la materia')
+            return []
+    else:
+        menu_texto.error_archivo()
+
+def valid_repeticion_nombre(nombre):
+    with open(materias.archivo, "r", encoding="UTF-8") as j:
+        datos = json.load(j)
+    while True:
+        for i in datos:
+            if i['nombre'].lower().strip() == nombre.lower().strip():
+                print('Ese nombre ya esta en uso, elija otro')
+                nombre = valid_nombre()
+                break
+        else:
+            break
+    return nombre
+
+def valid_repeticion_codigo(codigo):
+    with open(materias.archivo, "r", encoding="UTF-8") as j:
+        datos = json.load(j)
+    for i in datos:
+        if i['codigo'] == codigo:
+            print('Ese codigo ya esta en uso, elija otro')
+            return None
+    else:
+        return codigo
+
+def valid_codigo_materia():
+    while True:
+        try:
+            print('Ingrese 2 letras y un numero de 3 cifras (entre 100 y 999)')
+            while True:
+                letras = input('Letras >> ')
+                validez = r'^[A-ZÑ]{2}$'
+                if not re.match(validez,letras.upper()):
+                    print('Ingrese solo dos letras, sin simbolos ni nada mas')
+                    continue
+                else:
+                    break
+            while True:
+                numeros = int(input('Numero >> '))
+                if not (100 <= numeros <= 999):
+                    print('Ingrese un numero acorde')
+                else:
+                    break
+            
+            codigo = (letras + str(numeros))
+            if valid_repeticion_codigo(codigo):
+                return codigo
+            else:
+                print('Ese codigo ya existe, ingrese uno diferente')
+
+        except:
+            print('Ingrese correctamente los datos') 
+
+
 #validacion archivo usable
 def valid_archivo(archivo):
     try:
@@ -136,6 +258,7 @@ def tipo_archivo(arch):
         return 'txt'
     else:
         return None
+
 
 
 

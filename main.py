@@ -1,3 +1,11 @@
-import texto_menus
+import menu_texto
+import cursos
 
-texto_menus.bienvenida()
+#menu_texto.bienvenida()
+
+
+
+
+
+
+

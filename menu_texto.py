@@ -1,4 +1,7 @@
-from cursos import cursos
+import cursos
+import materias
+import profesores
+import json
 
 
 def bienvenida():
@@ -18,8 +21,8 @@ def opciones_principal():
         print("-" * 26)
         print("[1] Gestión de profesores")
         print("[2] Gestión de alumnos")
-        print("[3] Gestión de materias")
-        print("[4] Gestion de cursos")
+        print("[3] Gestion de cursos")
+        print("[4] Gestion de materias")
         print("[5] Registro de cambios")
         print("-" * 26)
         print("[0] Salir del programa")
@@ -110,6 +113,65 @@ def opcion_modificar_alumno():
             input("Opción inválida. Presione ENTER para volver a seleccionar.")
 
 
+def opciones_curso():
+    while True:
+        opciones = 2
+        print(f'Que desea modificar?')
+        print("---------------------------")
+        print("[1] Cantidad Maxima de Alumnos")
+        print("[2] Materias")
+        print("---------------------------")
+        print("[0] Salir")
+        print("---------------------------")
+        print()
+        opcion = input("Seleccione una opción: ")
+        if opcion in [str(i) for i in range(0, opciones + 1)]:
+            return opcion
+        else:
+            input("Opción inválida. Presione ENTER para volver a seleccionar.")
+
+
+def opciones_materias():
+    while True:
+        opciones = 2
+        print(f'Que desea modificar?')
+        print("---------------------------")
+        print("[1] Cantidad Maxima de Alumnos")
+        print("[2] Materias")
+        print("---------------------------")
+        print("[0] Salir")
+        print("---------------------------")
+        print()
+        opcion = input("Seleccione una opción: ")
+        if opcion in [str(i) for i in range(0, opciones + 1)]:
+            return opcion
+        else:
+            input("Opción inválida. Presione ENTER para volver a seleccionar.")
+
+
+def lista_profesores_disponibles():
+    print('Esta es la lista de profesores disponibles')
+    with open(profesores.archivo, "r", encoding="UTF-8") as j:
+        datos_p = json.load(j)
+
+    with open(materias.archivo, "r", encoding="UTF-8") as j:
+        datos_m = json.load(j)
+
+    disponibles = []
+
+    for i in datos_p:
+        contador = 0
+        for j in datos_m:
+            for h in j['profesores']:
+                if i['dni'] == h[0]:
+                    contador += 1
+        if contador < 3:
+            disponibles.append([i['dni'],i['nombre']])
+            print('=' * 52)
+            print(f'| {str(i['nombre']):<20} DNI {str(i['dni']):>25} |')
+    print('=' * 52)
+    return disponibles
+
 
 def opciones_alumno():
     while True:
@@ -139,30 +201,30 @@ def opciones_alumno():
 
 def opciones_tipos_cursos():
     print('Elija una de las siguientes opciones')
-    opciones = len(cursos)
+    opciones = len(cursos.nros_cursos)
     while True:
         print('-'*15)
-        for i,e in enumerate(cursos):
-            print(f'[{i}] {e}')
+        for i,e in enumerate(cursos.nros_cursos):
+            print(f'[{i+1}] {e}')
         print('-'*15)
         opcion = input('>>')
         if opcion in [str(i) for i in range(1, opciones+1)]:
             break
         else:
             input("Opción inválida. Presione ENTER para volver a seleccionar.")
-    
+
     if opcion == '1':
-        return cursos[0]
+        return cursos.nros_cursos[0]
     elif opcion == '2':
-        return cursos[1]
+        return cursos.nros_cursos[1]
     elif opcion == '3':
-        return cursos[2]
+        return cursos.nros_cursos[2]
     elif opcion == '4':
-        return cursos[3]
+        return cursos.nros_cursos[3]
     elif opcion == '5':
-        return cursos[4]
+        return cursos.nros_cursos[4]
     elif opcion == '6':
-        return cursos[5]
+        return cursos.nros_cursos[5]
 
 
 def error_archivo():

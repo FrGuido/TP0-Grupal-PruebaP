@@ -1,5 +1,5 @@
 import validar
-import texto_menus
+import menu_texto
 import otros
 
 import json
@@ -65,7 +65,7 @@ def añadir_profesor():
         input('Se ha ingresado correctamente al profesor\nPresione una tecla para continuar')
 
     else:
-        texto_menus.error_archivo()
+        menu_texto.error_archivo()
 
 
 def buscar_profesor(dni):
@@ -86,14 +86,14 @@ def modificar_profesor():
             prof = buscar_profesor(dni)
             if prof == None:
                 print('Desea intentarlo de nuevo?')
-                vl = texto_menus.confirmacion_user()
+                vl = menu_texto.confirmacion_user()
                 if vl == 'n':
                     return
             else:
                 break
             
         print('Este es el profesor que esta editando\n')
-        texto_menus.imprimir_dic(prof)
+        menu_texto.imprimir_dic(prof)
         input('Ingrese enter para continuar')            
 
         with open(archivo,'r',encoding="UTF-8") as j:
@@ -101,7 +101,7 @@ def modificar_profesor():
         for i in datos:
             if i['dni'] == dni:
                 while True:
-                    opcion = texto_menus.opcion_modificar_profesor()
+                    opcion = menu_texto.opcion_modificar_profesor()
 
                     if opcion == '0':
                         break
@@ -158,7 +158,7 @@ def modificar_profesor():
 
         otros.cargar_archivo_json(archivo,datos)
     else:
-        texto_menus.error_archivo()
+        menu_texto.error_archivo()
 
     input('Volviendo al menu inicial, precione enter')
 
@@ -169,7 +169,7 @@ def eliminar_profesor():
             try:
                 dni = int(input('Ingrese el DNI del profesor a eliminar\n>> '))
                 print('\nSeguro que desea eliminar este elemento?\n')
-                seg = texto_menus.confirmacion_user()
+                seg = menu_texto.confirmacion_user()
                 if seg == 's':
                     with open(archivo,'r',encoding="UTF-8") as j:
                         datos = json.load(j)
@@ -192,14 +192,14 @@ def eliminar_profesor():
 
         input('Volviendo al menu inicial, precione enter')
     else:
-        texto_menus.error_archivo()
+        menu_texto.error_archivo()
 
 
 def listar_profesores():
     with open(archivo, 'r', encoding="UTF-8") as j:
         datos = json.load(j)
     for i in datos:
-        texto_menus.imprimir_dic(i)
+        menu_texto.imprimir_dic(i)
     
     input('Ingrese enter para volver al menu anterior')
 

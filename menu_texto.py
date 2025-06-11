@@ -361,15 +361,15 @@ def seleccion_curso():
         if turno == '1':
             return '1ro'
         elif turno == '2':
-            return '2ro'
+            return '2do'
         elif turno == '3':
             return '3ro'
         elif turno == '4':
-            return '4ro'
+            return '4to'
         elif turno == '5':
-            return '5ro'
+            return '5to'
         elif turno == '6':
-            return '6ro'
+            return '6to'
         else:
             print('Ingrese una opcion valida\n-----------\n')
 

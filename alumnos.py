@@ -60,7 +60,7 @@ def añadir_alumno():
         with open(cursos.archivo, "r", encoding="UTF-8") as j:
                 datos = json.load(j)
         for i in datos:
-            if len(i['alumnos']) >= i['max_alumnos']:
+            if len(i['alumnos']) <= i['max alumnos']:
                 print("\n" + "=" * 50)
                 print(f"{"» Introduzca el curso donde desea añadir «".center(50)}")
                 print("-" * 50)
@@ -68,6 +68,7 @@ def añadir_alumno():
                 for i in datos:
                     if curso == i['nombre']:
                         i['alumnos'].append(cargar_esqueleto())
+                        break
                 otros.cargar_archivo_json(cursos.archivo,datos)
                 print('='*50)
                 input('Se ha ingresado correctamente al alumno\nPresione Enter para continuar')

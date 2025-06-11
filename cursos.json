@@ -16,7 +16,18 @@
   {
     "nombre": "3ro",
     "max alumnos": 35,
-    "alumnos": [],
+    "alumnos": [
+      {
+        "nombre": "Franco",
+        "apellido": "Guido",
+        "fecha_nacimiento": "28/6/2002",
+        "dni": 44338568,
+        "etapa": "Primario",
+        "turno": "Tarde",
+        "telefono": "1122639733",
+        "pasw": "Jorgue_2000"
+      }
+    ],
     "materias": [],
     "turno": "Tarde"
   },

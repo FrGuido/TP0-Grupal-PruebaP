@@ -5,8 +5,7 @@ import menu
 
 
 menu_texto.bienvenida()
-
-#menu.menu_admin()
+menu.menu_admin()
 
 
 

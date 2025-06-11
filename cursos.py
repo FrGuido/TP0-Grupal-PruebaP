@@ -41,8 +41,6 @@ def modificar_curso():
                         i['materias'] = modificar_materias(i['materias'])
 
 
-
-
     else:
         menu_texto.error_archivo()
 
@@ -51,40 +49,41 @@ def modificar_curso():
 
 
 def modificar_materias(lista):
-    print('Desea [1] añadir o [2] eliminar una materia?')
-    print('Ingrese 0 para salir')
-    opcion = input('>>')
-    if opcion == '0':
-        return lista
-    if opcion == '1':
-        if len(lista) < 10:
-            while True:
-                nombre,codigo = menu_texto.elegir_materia()
-                for i in lista:
-                    if codigo in i:
-                        print('Esta materia ya esta en este Curso, elija otra')
-                else:
-                    lista.append([codigo,nombre])
-                    return lista
-        else:
-            print('Se ha llegado al tope de materias, elimine una para poder añadir')
+    while True:
+        print('Desea [1] añadir o [2] eliminar una materia?')
+        print('Ingrese 0 para salir')
+        opcion = input('>>')
+        if opcion == '0':
             return lista
-    
-    elif opcion == '2':
-        if len(lista) > 0:
-            while True:
-                print('Este es el listado de materias de este curso')
-                for i in lista:
-                    print(f'Materia: {i[0]} | Codigo: {i[1]}')
-                print('-'*20)
-                codigo = input('Ingrese el codigo de alguna materia de la lista para eliminar\n>>')
-                for i in lista:
-                    if codigo in i:
-                        lista.remove([codigo,nombre])
-                else:
-                    print('No ha ingresado un codigo correcto')
-                    return lista
-
+        if opcion == '1':
+            if len(lista) < 10:
+                while True:
+                    nombre,codigo = menu_texto.elegir_materia()
+                    for i in lista:
+                        if codigo in i:
+                            print('Esta materia ya esta en este Curso, elija otra')
+                    else:
+                        lista.append([codigo,nombre])
+                        
+            else:
+                print('Se ha llegado al tope de materias, elimine una para poder añadir')
+                
+        
+        elif opcion == '2':
+            if len(lista) > 0:
+                while True:
+                    print('Este es el listado de materias de este curso')
+                    for i in lista:
+                        print(f'Materia: {i[0]} | Codigo: {i[1]}')
+                    print('-'*20)
+                    codigo = input('Ingrese el codigo de alguna materia de la lista para eliminar\n>>')
+                    for i in lista:
+                        if codigo in i:
+                            lista.remove([codigo,nombre])
+                    else:
+                        print('No ha ingresado un codigo correcto')
+            else:
+                print('No hay materias en este curso, ingrese alguna para poder eliminar')
 
 
 

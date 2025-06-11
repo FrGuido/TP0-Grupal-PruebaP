@@ -21,7 +21,7 @@ def opciones_principal():
         print("-" * 26)
         print("[1] Gestión de profesores")
         print("[2] Gestión de alumnos")
-        print("[3] Gestion de cursos")
+        print("[3] Modificar Curso")
         print("[4] Gestion de materias")
         print("[5] Registro de cambios")
         print("-" * 26)

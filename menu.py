@@ -2,6 +2,7 @@ import menu_texto
 import profesores
 import alumnos
 import materias
+import cursos
 
 
 
@@ -70,31 +71,28 @@ def menu_admin():
     
         #gestion cursos
         elif opcion == "3":
+            cursos.modificar_curso()
+        
+        #gestion de materias
+        elif opcion == '4':
             while True: 
                 opcion = menu_texto.opciones_alumno()
 
                 if opcion == "0":
                     break
                 
-                #añadir profesor
+                #añadir materia
                 elif opcion == "1":
-                    pass
+                    materias.crear_materia()
 
-                #eliminar profesor
+                #eliminar materia
                 elif opcion == "2":
-                    pass
-                
-                #modificar profesor
-                elif opcion == "3":
-                    pass
-                
-                #modificar materias profesor
-                elif opcion == "4":
-                    pass
+                    materias.elimiar_materia()
 
-                #lista profesores
-                elif opcion == "5":
-                    pass
+                #modificar materai
+                elif opcion == "3":
+                    materias.modificar_materia()
+                
 
 
 

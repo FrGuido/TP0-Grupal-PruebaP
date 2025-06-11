@@ -203,8 +203,9 @@ def modificar_prof_acargo(asignados):
                 print('Ingrese correctamente los datos\nIntente nuevamente')
                 input('Ingrese Enter para continuar')
 
- 
 
+def elimiar_materia():
+    pass
 
 
 

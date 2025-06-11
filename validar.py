@@ -240,7 +240,6 @@ def valid_codigo_materia():
         except:
             print('Ingrese correctamente los datos') 
 
-
 #validacion archivo usable
 def valid_archivo(archivo):
     try:

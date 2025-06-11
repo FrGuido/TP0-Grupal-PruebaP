@@ -1,5 +1,7 @@
 import menu_texto
 import profesores
+import alumnos
+import materias
 
 
 
@@ -33,16 +35,41 @@ def menu_admin():
                 #modificar profesor
                 elif opcion == "3":
                     profesores.modificar_profesor()
+
+                #lista profesores
+                elif opcion == "4":
+                    profesores.listar_profesores()
+
+        #gestion alumnos
+        elif opcion == "2":
+            while True: 
+                opcion = menu_texto.opciones_alumno()
+
+                if opcion == "0":
+                    break
                 
-                #modificar materias profesor
+                #añadir alumno
+                elif opcion == "1":
+                    alumnos.añadir_alumno()
+
+                #eliminar alumnos
+                elif opcion == "2":
+                    alumnos.eliminar_alumno()
+                
+                #modificar alumnos
+                elif opcion == "3":
+                    alumnos.modificar_alumno()
+                
+                #modificar notas alumno
                 elif opcion == "4":
                     pass
 
-                #lista profesores
+                #listar alumnos por curso
                 elif opcion == "5":
-                    profesores.listar_profesores()
-
-        elif opcion == "2":
+                    pass
+    
+        #gestion cursos
+        elif opcion == "3":
             while True: 
                 opcion = menu_texto.opciones_alumno()
 
@@ -51,15 +78,15 @@ def menu_admin():
                 
                 #añadir profesor
                 elif opcion == "1":
-                    profesores.añadir_profesor()
+                    pass
 
                 #eliminar profesor
                 elif opcion == "2":
-                    profesores.eliminar_profesor()
+                    pass
                 
                 #modificar profesor
                 elif opcion == "3":
-                    profesores.modificar_profesor()
+                    pass
                 
                 #modificar materias profesor
                 elif opcion == "4":
@@ -67,7 +94,7 @@ def menu_admin():
 
                 #lista profesores
                 elif opcion == "5":
-                    profesores.listar_profesores()
+                    pass
 
 
 

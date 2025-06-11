@@ -40,7 +40,7 @@ def opciones_principal():
 
 def opciones_profesores():
     while True:
-        opciones = 5
+        opciones = 4
         print()
         print("---------------------------")
         print("MENÚ PRINCIPAL > GESTION DE PROFESORES")
@@ -48,8 +48,7 @@ def opciones_profesores():
         print("[1] Añadir Profesores")
         print("[2] Eliminar Profesor")
         print("[3] Modificar Profesor")
-        print("[4] Modificar Materias Profesor")
-        print("[5] Lista Profesores")
+        print("[4] Lista Profesores")
         print("---------------------------")
         print("[0] Volver al menú anterior")
         print("---------------------------")
@@ -63,6 +62,55 @@ def opciones_profesores():
     print()
     return opcion
 
+def opciones_alumno():
+    while True:
+        opciones = 5
+        print()
+        print("---------------------------")
+        print("MENÚ PRINCIPAL > GESTION DE ALUMNOS")
+        print("---------------------------")
+        print("[1] Añadir Alumno")
+        print("[2] Eliminar Alumno")
+        print("[3] Modificar Alumno")
+        print("[4] Modificar Notas Alumno")
+        print("[5] Listar Alumnos Curso")
+        print("---------------------------")
+        print("[0] Volver al menú anterior")
+        print("---------------------------")
+        print()
+
+        opcion = input("Seleccione una opción: ")
+        if opcion in [str(i) for i in range(0, opciones + 1)]:
+            break
+        else:
+            input("Opción inválida. Presione ENTER para volver a seleccionar.")
+    print()
+    return opcion
+
+def opciones_materias():
+    while True:
+        opciones = 5
+        print()
+        print("---------------------------")
+        print("MENÚ PRINCIPAL > GESTION DE MATERIAS")
+        print("---------------------------")
+        print("[1] Modificar Limite Alumnos")
+        print("[2] Modificar Materias")
+        print("[3] Modificar Alumno")
+        print("[4] Modificar Notas Alumno")
+        print("[5] Listar Alumnos Curso")
+        print("---------------------------")
+        print("[0] Volver al menú anterior")
+        print("---------------------------")
+        print()
+
+        opcion = input("Seleccione una opción: ")
+        if opcion in [str(i) for i in range(0, opciones + 1)]:
+            break
+        else:
+            input("Opción inválida. Presione ENTER para volver a seleccionar.")
+    print()
+    return opcion
 
 def opcion_modificar_profesor():
     while True:
@@ -113,7 +161,43 @@ def opcion_modificar_alumno():
             input("Opción inválida. Presione ENTER para volver a seleccionar.")
 
 
-def opciones_curso():
+def opcion_modificar_materia():
+    while True:
+        opciones = 2
+        print(f'Que desea modificar?')
+        print("---------------------------")
+        print("[1] Nombre")
+        print("[2] Profesores acargo")
+        print("---------------------------")
+        print("[0] Salir")
+        print("---------------------------")
+        print()
+        opcion = input("Seleccione una opción: ")
+        if opcion in [str(i) for i in range(0, opciones + 1)]:
+            return opcion
+        else:
+            input("Opción inválida. Presione ENTER para volver a seleccionar.")
+
+
+def opcion_modificar_materias_profesores():
+    while True:
+        opciones = 2
+        print(f'Que desea hacer?')
+        print("---------------------------")
+        print("[1] Añadir Profesor")
+        print("[2] Eliminar Profesor")
+        print("---------------------------")
+        print("[0] Salir")
+        print("---------------------------")
+        print()
+        opcion = input("Seleccione una opción: ")
+        if opcion in [str(i) for i in range(0, opciones + 1)]:
+            return opcion
+        else:
+            input("Opción inválida. Presione ENTER para volver a seleccionar.")
+
+
+def opciones_modificar_curso():
     while True:
         opciones = 2
         print(f'Que desea modificar?')
@@ -148,6 +232,24 @@ def opciones_materias():
         else:
             input("Opción inválida. Presione ENTER para volver a seleccionar.")
 
+def elegir_materia():
+    with open(materias.archivo,"r",encoding="UTF-8") as j:
+        datos = json.load(j)
+    while True:
+        opciones = len(datos)
+        print("---------------------------")
+        for i, valor in enumerate(datos):
+            print("[{i+1}] {valor['nombre']}")
+        print("---------------------------")
+        print("[0] Salir")
+        print("---------------------------")
+        print()
+        opcion = input("Seleccione una opción: ")
+        if opcion in [str(i) for i in range(0, opciones + 1)]:
+            return (datos[opcion-1]['nombre'], datos[opcion-1]['codigo']) 
+        else:
+            input("Opción inválida. Presione ENTER para volver a seleccionar.")
+
 
 def lista_profesores_disponibles():
     print('Esta es la lista de profesores disponibles')
@@ -172,31 +274,6 @@ def lista_profesores_disponibles():
     print('=' * 52)
     return disponibles
 
-
-def opciones_alumno():
-    while True:
-        opciones = 5
-        print()
-        print("---------------------------")
-        print("MENÚ PRINCIPAL > GESTION DE ALUMNOS")
-        print("---------------------------")
-        print("[1] Añadir Alumno")
-        print("[2] Eliminar Alumno")
-        print("[3] Modificar Alumno")
-        print("[4] Modificar Notas Alumno")
-        print("[5] Listar Alumnos Curso")
-        print("---------------------------")
-        print("[0] Volver al menú anterior")
-        print("---------------------------")
-        print()
-
-        opcion = input("Seleccione una opción: ")
-        if opcion in [str(i) for i in range(0, opciones + 1)]:
-            break
-        else:
-            input("Opción inválida. Presione ENTER para volver a seleccionar.")
-    print()
-    return opcion
 
 
 def opciones_tipos_cursos():

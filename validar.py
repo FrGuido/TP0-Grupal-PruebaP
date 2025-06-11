@@ -5,10 +5,21 @@ import materias
 import profesores
 import cursos
 
-#validacion de dni
-def valid_dni(arch):
+#validacion dni simple
+def valid_formato_dni():
+    while True:
+        try:
+            dni = input('>>> ')
+            print('-'*15)
+            if len(dni) == 8 and dni.isdigit(): #El DNI debe tener 8 digitos
+                return int(dni)
+        except:
+            print('Ingrese los datos adecuados\n')
 
-    tipo = tipo_archivo(arch)
+#validacion existencia dni en profesores
+def valid_dni_inprof():
+
+    tipo = tipo_archivo(profesores.archivo)
 
     while True:
         try:
@@ -18,7 +29,7 @@ def valid_dni(arch):
                 dni = int(dni)
                 if tipo == 'json':
                     vl = 0
-                    with open(arch, "r", encoding="UTF-8") as j:
+                    with open(profesores.archivo, "r", encoding="UTF-8") as j:
                         datos = json.load(j)
                         for i in datos:
                             if i['dni'] == dni:
@@ -41,6 +52,45 @@ def valid_dni(arch):
                 print('-'*15)
         except ValueError:
             print('Ingrese numeros\n--------')
+
+#validacion existencia dni en cursos/alumnos
+def valid_dni_inalu():
+
+    tipo = tipo_archivo(cursos.archivo)
+
+    while True:
+        try:
+            dni = input('>>> ')
+            print('-'*15)
+            if len(dni) == 8 and dni.isdigit(): #El DNI debe tener 8 digitos
+                dni = int(dni)
+                if tipo == 'json':
+                    vl = 0
+                    with open(cursos.archivo, "r", encoding="UTF-8") as j:
+                        datos = json.load(j)
+                        for i in datos:
+                            for j in i['alumnos']:
+                                if j['dni'] == dni:
+                                    vl = 1
+                                    print()
+                                    print('Ese DNI ya existe, pruebe otro o ingrese uno temporal para despues editarlo\n')
+                                    print('-'*15)
+                                    break
+                        
+                elif tipo == 'csv':
+                    pass
+                elif tipo == 'txt':
+                    pass
+
+                if vl == 0:
+                    return dni
+            
+            else:
+                print('Ingreso un DNI invalido, intente nuevamente, sin puntos, guiones ni espacios') #Mensaje de correccion
+                print('-'*15)
+        except ValueError:
+            print('Ingrese numeros\n--------')
+
 
 #validacion de mail
 def valid_mail():
@@ -136,50 +186,6 @@ def valid_cant_alumnos(max, cant_alumnos):
                 return num
         except:
             print('Ingrese numeros enteros, Intente nuevamente')
-    else:
-        menu_texto.error_archivo()
-
-def prof_acargo():
-    if valid_archivo(profesores.archivo):
-        print('(Solo se pueden añadir profesores con menos de 3 materias asignadas)')
-        profes = []
-        disp = menu_texto.lista_profesores_disponibles()
-        contador = 0
-        if disp != []:
-            while True:
-                try:
-                    if contador == 5:
-                        print('Ha llegado al limite de profesores')
-                        input('Presione Enter para salir')
-                        break
-                    verif = False
-                    print('\nIngresa el DNI del profesor que deseas añadir')
-                    p = int(input('Ingrese el DNI del profesor a añadir\n>>> '))
-                    for i in profes:
-                        if p in i:
-                            print('Ese profe ya se encuentra en esta materia, elija otro')
-                            verif = True
-                            break
-                    if not verif:
-                        for i in disp:
-                            if p in i:
-                                profes.append(i)
-                                contador += 1
-                                break
-                        else:
-                            print('Ingrese un profesor disponible')
-                        print('Desea ingresar un profesor nuevo?')
-                        if menu_texto.confirmacion_user() == 'n':
-                            break
-
-                except:
-                    print('Ingrese numeros')      
-
-            return profes
-    
-        else:
-            print('No se han encontrado profesores disponibles\nlibere a alguno y edite la materia')
-            return []
     else:
         menu_texto.error_archivo()
 

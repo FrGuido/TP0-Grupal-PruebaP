@@ -1,6 +1,7 @@
 import validar
 import menu_texto
 import otros
+import cursos
 
 import json
 
@@ -27,7 +28,7 @@ def cargar_esqueleto():
     print("\n" + "=" * 50)
     print(f"{"» Introduzca su DNI «".center(50)}")
     print("-" * 50)
-    prof['dni'] = validar.valid_dni(archivo)
+    prof['dni'] = validar.valid_dni_inprof()
 
     print("\n" + "=" * 50)
     print(f"{"» Introduzca su Email «".center(50)}")
@@ -132,7 +133,7 @@ def modificar_profesor():
                         print(f'{"~ Modificando DNI ~".center(50)}')
                         print(f"{"» Introduzca su DNI «".center(50)}")
                         print("-" * 50)
-                        i['dni'] = validar.valid_dni(archivo)
+                        i['dni'] = validar.valid_dni_inprof()
 
                     elif opcion == '5':
                         print("\n" + "=" * 50)
@@ -164,7 +165,7 @@ def modificar_profesor():
 
 
 def eliminar_profesor():
-    if validar.valid_archivo(archivo):
+    if validar.valid_archivo(archivo) or validar.valid_archivo(cursos.archivo):
         while True:
             try:
                 dni = int(input('Ingrese el DNI del profesor a eliminar\n>> '))
@@ -177,6 +178,16 @@ def eliminar_profesor():
                     datos = list(filter(lambda x: x['dni'] != dni, datos))
                     
                     otros.cargar_archivo_json(archivo,datos)
+
+                    with open(cursos.archivo,"r",encoding="UTF-8") as j:
+                        datos = json.load(j)
+                    
+                    for i in datos:
+                        for j in i['materias']:
+                            for g in j['profesores']:
+                                if dni in g:
+                                    j.remove(g)
+                        
 
                     print('='*50)
                     input('Se ha eliminado correctamente al profesor\nPresione una tecla para continuar')

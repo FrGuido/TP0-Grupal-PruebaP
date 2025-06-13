@@ -101,9 +101,9 @@ def opciones_materias():
         print("---------------------------")
         print("MENÚ PRINCIPAL > GESTION DE MATERIAS")
         print("---------------------------")
-        print("[1] Modificar Limite Alumnos")
-        print("[2] Modificar Materias")
-        print("[3] Modificar Alumno")
+        print("[1] Añadir Materia")
+        print("[2] Eliminar Materia")
+        print("[3] Modificar Materia")
         print("[4] Modificar Notas Alumno")
         print("[5] Listar Alumnos Curso")
         print("---------------------------")
@@ -204,25 +204,7 @@ def opcion_modificar_materias_profesores():
             input("Opción inválida. Presione ENTER para volver a seleccionar.")
 
 
-def opciones_modificar_curso():
-    while True:
-        opciones = 2
-        print(f'Que desea modificar?')
-        print("---------------------------")
-        print("[1] Cantidad Maxima de Alumnos")
-        print("[2] Materias")
-        print("---------------------------")
-        print("[0] Salir")
-        print("---------------------------")
-        print()
-        opcion = input("Seleccione una opción: ")
-        if opcion in [str(i) for i in range(0, opciones + 1)]:
-            return opcion
-        else:
-            input("Opción inválida. Presione ENTER para volver a seleccionar.")
-
-
-def opciones_materias():
+def opciones_cursos():
     while True:
         opciones = 2
         print(f'Que desea modificar?')
@@ -246,14 +228,16 @@ def elegir_materia():
         opciones = len(datos)
         print("---------------------------")
         for i, valor in enumerate(datos):
-            print("[{i+1}] {valor['nombre']}")
+            print(f"[{i+1}] {valor['nombre']}")
         print("---------------------------")
         print("[0] Salir")
         print("---------------------------")
         print()
         opcion = input("Seleccione una opción: ")
-        if opcion in [str(i) for i in range(0, opciones + 1)]:
-            return (datos[opcion-1]['nombre'], datos[opcion-1]['codigo']) 
+        if opcion in [str(i) for i in range(1, opciones + 1)]:
+            return (datos[int(opcion)-1]['nombre'], datos[int(opcion)-1]['codigo']) 
+        elif opcion == '0':
+            return (None, None)
         else:
             input("Opción inválida. Presione ENTER para volver a seleccionar.")
 
@@ -281,34 +265,6 @@ def lista_profesores_disponibles():
     print('=' * 52)
     return disponibles
 
-
-
-def opciones_tipos_cursos():
-    print('Elija una de las siguientes opciones')
-    opciones = len(cursos.nros_cursos)
-    while True:
-        print('-'*15)
-        for i,e in enumerate(cursos.nros_cursos):
-            print(f'[{i+1}] {e}')
-        print('-'*15)
-        opcion = input('>>')
-        if opcion in [str(i) for i in range(1, opciones+1)]:
-            break
-        else:
-            input("Opción inválida. Presione ENTER para volver a seleccionar.")
-
-    if opcion == '1':
-        return cursos.nros_cursos[0]
-    elif opcion == '2':
-        return cursos.nros_cursos[1]
-    elif opcion == '3':
-        return cursos.nros_cursos[2]
-    elif opcion == '4':
-        return cursos.nros_cursos[3]
-    elif opcion == '5':
-        return cursos.nros_cursos[4]
-    elif opcion == '6':
-        return cursos.nros_cursos[5]
 
 
 def error_archivo():

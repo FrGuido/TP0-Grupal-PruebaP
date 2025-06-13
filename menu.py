@@ -76,7 +76,7 @@ def menu_admin():
         #gestion de materias
         elif opcion == '4':
             while True: 
-                opcion = menu_texto.opciones_alumno()
+                opcion = menu_texto.opciones_materias()
 
                 if opcion == "0":
                     break
@@ -89,7 +89,7 @@ def menu_admin():
                 elif opcion == "2":
                     materias.elimiar_materia()
 
-                #modificar materai
+                #modificar materia
                 elif opcion == "3":
                     materias.modificar_materia()
                 

@@ -1,1 +1,40 @@
-[]
+[
+  {
+    "nombre": "Matermatica",
+    "profesores": [
+      [
+        22331144,
+        "Roncho"
+      ],
+      [
+        44338568,
+        "Franco"
+      ]
+    ],
+    "codigo": "BC988"
+  },
+  {
+    "nombre": "Quimica",
+    "profesores": [
+      [
+        22331144,
+        "Roncho"
+      ],
+      [
+        44338568,
+        "Franco"
+      ]
+    ],
+    "codigo": "MA909"
+  },
+  {
+    "nombre": "Polisia",
+    "profesores": [
+      [
+        44338568,
+        "Franco"
+      ]
+    ],
+    "codigo": "MA888"
+  }
+]

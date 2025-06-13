@@ -15,26 +15,26 @@
   },
   {
     "nombre": "3ro",
-    "max alumnos": 35,
-    "alumnos": [
-      {
-        "nombre": "Franco",
-        "apellido": "Guido",
-        "fecha_nacimiento": "28/6/2002",
-        "dni": 44338568,
-        "etapa": "Primario",
-        "turno": "Tarde",
-        "telefono": "1122639733",
-        "pasw": "Jorgue_2000"
-      }
-    ],
+    "max alumnos": 29,
+    "alumnos": [],
     "materias": [],
     "turno": "Tarde"
   },
   {
     "nombre": "4to",
     "max alumnos": 35,
-    "alumnos": [],
+    "alumnos": [
+      {
+        "nombre": "Momo",
+        "apellido": "Roro",
+        "fecha_nacimiento": "9/8/1980",
+        "dni": 11223344,
+        "etapa": "Primario",
+        "turno": "Tarde",
+        "telefono": "1166557744",
+        "pasw": "Pedtio_oa20"
+      }
+    ],
     "materias": [],
     "turno": "Tarde"
   },
@@ -54,9 +54,14 @@
   },
   {
     "nombre": "1ro",
-    "max alumnos": 35,
+    "max alumnos": 28,
     "alumnos": [],
-    "materias": [],
+    "materias": [
+      [
+        "BC988",
+        "Mate"
+      ]
+    ],
     "turno": "Mañana"
   },
   {

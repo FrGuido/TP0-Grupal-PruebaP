@@ -168,7 +168,9 @@ def eliminar_profesor():
     if validar.valid_archivo(archivo) or validar.valid_archivo(cursos.archivo):
         while True:
             try:
-                dni = int(input('Ingrese el DNI del profesor a eliminar\n>> '))
+                print('Ingrese el DNI del profesor a eliminar')
+                dni = validar.valid_formato_dni()
+                menu_texto.imprimir_dic(buscar_profesor(dni))
                 print('\nSeguro que desea eliminar este elemento?\n')
                 seg = menu_texto.confirmacion_user()
                 if seg == 's':
@@ -190,7 +192,7 @@ def eliminar_profesor():
                         
 
                     print('='*50)
-                    input('Se ha eliminado correctamente al profesor\nPresione una tecla para continuar')
+                    print('Se ha eliminado correctamente al profesor')
 
 
                     break
@@ -201,7 +203,7 @@ def eliminar_profesor():
             except:
                 print('Ingrese numeros\n--------------')
 
-        input('Volviendo al menu inicial, precione enter')
+        input('Volviendo al menu inicial, presione Enter para continuar')
     else:
         menu_texto.error_archivo()
 

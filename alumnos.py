@@ -65,8 +65,9 @@ def añadir_alumno():
                 print(f"{"» Introduzca el curso donde desea añadir «".center(50)}")
                 print("-" * 50)
                 curso = menu_texto.seleccion_curso()
+                turno = menu_texto.seleccion_turno()
                 for i in datos:
-                    if curso == i['nombre']:
+                    if curso == i['nombre'] and turno == i['turno']:
                         i['alumnos'].append(cargar_esqueleto())
                         break
                 otros.cargar_archivo_json(cursos.archivo,datos)

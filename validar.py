@@ -11,7 +11,7 @@ def valid_formato_dni():
         try:
             dni = input('>>> ')
             print('-'*15)
-            if len(dni) == 8 and dni.isdigit(): #El DNI debe tener 8 digitos
+            if len(dni) == 8 and dni.isdigit() and int(dni)>10000000: #El DNI debe tener 8 digitos
                 return int(dni)
         except:
             print('Ingrese los datos adecuados\n')
@@ -217,9 +217,9 @@ def valid_codigo_materia():
         try:
             print('Ingrese 2 letras y un numero de 3 cifras (entre 100 y 999)')
             while True:
-                letras = input('Letras >> ')
+                letras = input('Letras >> ').upper()
                 validez = r'^[A-ZÑ]{2}$'
-                if not re.match(validez,letras.upper()):
+                if not re.match(validez,letras):
                     print('Ingrese solo dos letras, sin simbolos ni nada mas')
                     continue
                 else:

@@ -12,34 +12,36 @@ def bienvenida():
     print(f'{" - "*15:^58}')
 
 
-def opciones_principal():
-    while True:
-        opciones = 5
-        print()
-        print("-" * 26)
-        print("MENÚ PRINCIPAL")
-        print("-" * 26)
-        print("[1] Gestión de profesores")
-        print("[2] Gestión de alumnos")
-        print("[3] Modificar Curso")
-        print("[4] Gestion de materias")
-        print("[5] Registro de cambios")
-        print("-" * 26)
-        print("[0] Salir del programa")
-        print("-" * 26)
-        print()
+def opciones_principal(contador = 0):
+    if contador >= 5:
+        print("Demasiados intentos inválidos. Cerrando programa...")
+        exit()
 
-        opcion = input("Seleccione una opción: ")
-        if opcion in [str(i) for i in range(0, opciones + 1)]:
-            break
-        else:
-            input("Opción inválida. Presione ENTER para volver a seleccionar.")
+    opciones = 5
+    print()
+    print("-" * 26)
+    print("MENÚ PRINCIPAL")
+    print("-" * 26)
+    print("[1] Gestión de profesores")
+    print("[2] Gestión de alumnos")
+    print("[3] Modificar Curso")
+    print("[4] Gestion de materias")
+    print("[5] Registro de cambios")
+    print("-" * 26)
+    print("[0] Salir del programa")
+    print("-" * 26)
+    print()
+
+    opcion = input("Seleccione una opción: ")
+    if opcion not in [str(i) for i in range(0, opciones + 1)]:
+        input("Opción inválida. Presione ENTER para volver a seleccionar.")
+        return opciones_principal(contador + 1)
     print()
     return opcion
 
 
-def opciones_profesores():
-    while True:
+def opciones_profesores(contador = 0):
+    if contador <= 5:
         opciones = 4
         print()
         print("---------------------------")
@@ -56,11 +58,16 @@ def opciones_profesores():
 
         opcion = input("Seleccione una opción: ")
         if opcion in [str(i) for i in range(0, opciones + 1)]:
-            break
+            return opcion
         else:
+            print()
             input("Opción inválida. Presione ENTER para volver a seleccionar.")
-    print()
-    return opcion
+            return opciones_profesores(contador + 1)
+    else:
+        print('Ha ingresado demasiadas veces una opcion erronea, volvera al menu anteriro')
+        input('Ingrese Enter para continuar')
+        return '0'      
+        
 
 def opciones_alumno():
     while True:

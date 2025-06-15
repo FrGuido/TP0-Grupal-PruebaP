@@ -90,6 +90,7 @@ def buscar_alumno(dni):
 def modificar_alumno():
     if validar.valid_archivo(cursos.archivo):
         while True:
+            print('Ingrese el dni del alumno que desea modificar')
             dni = validar.valid_formato_dni()
             alu = buscar_alumno(dni)
             if alu == None:

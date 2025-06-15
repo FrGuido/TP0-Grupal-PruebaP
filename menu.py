@@ -4,9 +4,18 @@ import alumnos
 import materias
 import cursos
 import validar
+import registro
 
 
+login_admin = "admin"
+contraseña_admin = "admin"
 
+def login():
+    print('Ingrese su dni')
+    dni = input(validar.valid_formato_dni())
+    if dni != contraseña_admin:
+        with open(profesores.archivo) as j:
+            pass
 
 def menu_admin():
     while True:
@@ -103,7 +112,16 @@ def menu_admin():
                 #modificar materia
                 elif opcion == "3":
                     materias.modificar_materia()
-                    
+
+        elif opcion == '5':
+            registro.leer_modificaciones()
+
+
+def menu_profesor():
+    pass
+
+def menu_alumno():
+    pass
                 
 
 

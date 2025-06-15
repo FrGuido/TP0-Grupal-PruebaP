@@ -261,7 +261,7 @@ def lista_profesores_disponibles():
         if contador < 3:
             disponibles.append([i['dni'],i['nombre']])
             print('=' * 52)
-            print(f'| {str(i['nombre']):<20} DNI {str(i['dni']):>25} |')
+            print(f"| {str(i['nombre']):<20} DNI {str(i['dni']):>25} |")
     print('=' * 52)
     return disponibles
 

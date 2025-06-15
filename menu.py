@@ -5,17 +5,26 @@ import materias
 import cursos
 import validar
 import registro
+import json
 
 
-login_admin = "admin"
+login_admin = "11111111"
 contraseña_admin = "admin"
 
 def login():
+    intentos = 4
     print('Ingrese su dni')
     dni = input(validar.valid_formato_dni())
-    if dni != contraseña_admin:
-        with open(profesores.archivo) as j:
-            pass
+    if dni != login_admin:
+        with open(profesores.archivo,"r",encoding="UTF-8") as j:
+            datos = json.load(j)
+        for i in datos:
+            if i['dni'] == dni:
+                print(f'Bienvenido profesor {i['nombre']} {i['apellido']}')
+                contra = input('Ingrese su contraseña, si la ha olvidado consulte con el admin\n>>')
+                while contra != i['pasw']:
+                    pass
+
 
 def menu_admin():
     while True:

@@ -87,6 +87,7 @@ def buscar_profesor(dni):
 def modificar_profesor():
     if validar.valid_archivo(archivo):
         while True:
+            print('Ingrese el dni del profesor a buscar')
             dni = validar.valid_formato_dni()
             prof = buscar_profesor(dni)
             if prof == None:

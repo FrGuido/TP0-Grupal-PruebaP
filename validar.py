@@ -18,6 +18,8 @@ def valid_formato_dni():
             print('-'*15)
             if len(dni) == 8 and dni.isdigit() and int(dni)>10000000: #El DNI debe tener 8 digitos
                 return int(dni)
+            else:
+                print('Formato de DNI incorrecto, intente nuevamente')
         except:
             print('Ingrese los datos adecuados\n')
 

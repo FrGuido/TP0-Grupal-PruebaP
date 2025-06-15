@@ -232,7 +232,7 @@ def modificar_notas():
             menu_texto.editar_nota(alu)
     else:
         menu_texto.error_archivo()
-    input('Volviendo al menu inicial, precione enter')
+    input('Volviendo al menu inicial, presione enter')
 
 
 def listar_alumnos():

@@ -108,7 +108,7 @@ def menu_admin():
                 elif opcion == "6":
                     print('Ingrese el DNI del profesor a buscar')
                     menu_texto.imprimir_dic(alumnos.buscar_alumno(validar.valid_formato_dni()))
-                    input('Presione Enter para volver al menu anteriro')
+                    input('Presione Enter para volver al menu anterior')
     
         #gestion cursos
         elif opcion == "3":

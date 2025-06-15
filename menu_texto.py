@@ -477,7 +477,7 @@ def editar_nota(alumno):
             arch = archivo.readline().strip()
             while arch:
                 campos = arch.split(",")
-                if campos[0].split(" - ")[1] == profdni and campos[3].split(" - ")[1] == alumno['dni'] and campos[5] == instancia:
+                if campos[0].split(" - ")[1] == str(profdni) and campos[3].split(" - ")[1] == str(alumno['dni']) and campos[5] == instancia:
                     campos[4] = str(alumnos.pedir_nota())
                     campos[6] = time.ctime(time.time())
                     arch = ",".join(campos)

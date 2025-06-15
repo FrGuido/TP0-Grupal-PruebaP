@@ -1,12 +1,12 @@
 import menu_texto
 import validar
-import otros
+
 import cursos
 import materias
 
 import json
 
-
+notas = "notas.csv"
 
 
 def cargar_esqueleto():
@@ -30,12 +30,6 @@ def cargar_esqueleto():
     print(f"{"» Introduzca su DNI «".center(50)}")
     print("-" * 50)
     alu['dni'] = validar.valid_dni_inalu()
-
-    print("\n" + "=" * 50)
-    print(f"{"» Introduzca su Etapa «".center(50)}")
-    print("-" * 50)
-    alu['etapa'] = menu_texto.seleccion_etapa()
-
 
     print("\n" + "=" * 50)
     print(f"{"» Introduzca su Turno «".center(50)}")
@@ -70,7 +64,7 @@ def añadir_alumno():
                     if curso == i['nombre'] and turno == i['turno']:
                         i['alumnos'].append(cargar_esqueleto())
                         break
-                otros.cargar_archivo_json(cursos.archivo,datos)
+                validar.cargar_archivo_json(cursos.archivo,datos)
                 print('='*50)
                 input('Se ha ingresado correctamente al alumno\nPresione Enter para continuar')
                 break
@@ -98,7 +92,7 @@ def buscar_alumno(dni):
 def modificar_alumno():
     if validar.valid_archivo(cursos.archivo):
         while True:
-            dni = otros.pedir_dni()
+            dni = validar.valid_formato_dni()
             alu = buscar_alumno(dni)
             if alu == None:
                 print('Desea intentarlo de nuevo?')
@@ -150,36 +144,22 @@ def modificar_alumno():
                             print(f"{"» Introduzca su DNI «".center(50)}")
                             print("-" * 50)
                             j['dni'] = validar.valid_dni_inalu()
-                        
+
                         elif opcion == '5':
-                            print("\n" + "=" * 50)
-                            print(f'{"~ Modificando Etapa ~".center(50)}')
-                            print(f"{"» Introduzca su nueva Etapa «".center(50)}")
-                            print("-" * 50)
-                            j['etapa'] = menu_texto.seleccion_etapa()
-
-                        elif opcion == '7':
-                            print("\n" + "=" * 50)
-                            print(f'{"~ Modificando Turno ~".center(50)}')
-                            print(f"{"» Introduzca su nuevo Turno «".center(50)}")
-                            print("-" * 50)
-                            j['turno'] = menu_texto.seleccion_turno()
-
-                        elif opcion == '8':
                             print("\n" + "=" * 50)
                             print(f'{"~ Modificando Email ~".center(50)}')
                             print(f"{"» Introduzca su nuevo Email «".center(50)}")
                             print("-" * 50)
                             j['mail'] = validar.valid_mail()
 
-                        elif opcion == '9':
+                        elif opcion == '6':
                             print("\n" + "=" * 50)
                             print(f'{"~ Modificando telefono ~".center(50)}')
                             print(f"{"» Introduzca su nuevo Telefono «".center(50)}")
                             print("-" * 50)
                             j['telefono'] = validar.valid_telefono()
 
-                        elif opcion == '10':
+                        elif opcion == '7':
                             print("\n" + "=" * 50)
                             print(f'{"~ Modificando Contraseña ~".center(50)}')
                             print(f"{"» Introduzca su nueva Contraseña «".center(50)}")
@@ -187,7 +167,7 @@ def modificar_alumno():
                             j['pasw'] = validar.valid_pasw()
                     break
 
-        otros.cargar_archivo_json(cursos.archivo,datos)
+        validar.cargar_archivo_json(cursos.archivo,datos)
     else:
         menu_texto.error_archivo()
 
@@ -211,7 +191,7 @@ def eliminar_alumno():
                             seg = menu_texto.confirmacion_user()
                             if seg == 's':
                                 i['alumnos'] = list(filter(lambda x: x['dni'] != dni, i['alumnos']))
-                                otros.cargar_archivo_json(cursos.archivo,datos)
+                                validar.cargar_archivo_json(cursos.archivo,datos)
                                 print('='*50)
                                 input('Se ha eliminado correctamente al alumno\nPresione Enter para continuar')
                                 return
@@ -224,10 +204,11 @@ def eliminar_alumno():
     else:
         menu_texto.error_archivo()
 
-def modificar_notas_alumno():
+def modificar_notas():
     if validar.valid_archivo(cursos.archivo):
         while True:
-            dni = otros.pedir_dni()
+            print('Ingrese el dni del alumno el cual quiere modificar sus notas')
+            dni = validar.valid_formato_dni()
             alu = buscar_alumno(dni)
             if alu == None:
                 print('Desea intentarlo de nuevo?')
@@ -240,42 +221,58 @@ def modificar_notas_alumno():
         print('Este es el alumno del que esta editando/viendo sus notas\n')
         menu_texto.imprimir_dic(alu)
         input('Ingrese enter para continuar')
-        with open(cursos.archivo,'r',encoding="UTF-8") as j:
-            datos = json.load(j)
-        for i in datos:
-            for j in i['alumnos']:
-                if j['dni'] == dni:
-                    pass
-
-
-
+        opcion = menu_texto.eleccion_notas()
+        if opcion == '0':
+            return
+        elif opcion == '1':
+            menu_texto.añadir_nota(alu)
+        elif opcion == '2':
+            menu_texto.editar_nota(alu)
     else:
         menu_texto.error_archivo()
     input('Volviendo al menu inicial, precione enter')
 
 
-
-def añadir_nota(alumno):
-    with open(materias.archivo,"r", encoding="UTF-8") as j:
+def listar_alumnos():
+    paso = False
+    curso,turno = cursos.buscar_curso()
+    with open(cursos.archivo,'r',encoding="UTF-8") as j:
         datos = json.load(j)
     for i in datos:
-        menu_texto.imprimir_dic(i)
+        if i['nombre'] == curso and i['turno'] == turno:
+            paso = True
+            for j in i['alumnos']:
+                menu_texto.imprimir_dic(j)
+            break
+    if not paso:
+        print(f'No hay alumnos en el curso {curso} del turno {turno}')
 
+def pedir_nota():
+    print('Ingrese la nota (Entre 0 y 10)\n ~ si ingresa con decimales que sea con . y no con , ~')
     while True:
-        print('De que materia es la nota que se esta ingresando?')
-        materia = menu_texto.elegir_materia()
-        
-            
+        try:
+            nota = float(input('>>'))
+            if 0 <= nota <= 10:
+                return round(nota,2)
+            else:
+                print('Ingrese un valor en el rango e intente nuevamente')
+        except:
+            print('Ingrese valores numericos y los decimales con .')
 
 
-
-
-
-
-
-
-
-
+def pedir_instancia():
+    print('Ingrese la instancia deseada')
+    print('-'*15)
+    print('[1] 1er Cuatrimestre')
+    print('[2] 2do Cuatrimestre')
+    print('[3] Final')
+    opcion = input('Ingrese la opcion: ')
+    if opcion == '1':
+        return '1er Cuatrimestre'
+    elif opcion == '2':
+        return '2do Cuatrimestre'
+    elif opcion == '3':
+        return 'Final'
 
 
 

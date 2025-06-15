@@ -63,11 +63,13 @@ def menu_admin():
                 
                 #modificar notas alumno
                 elif opcion == "4":
-                    pass
+                    alumnos.modificar_notas()
 
                 #listar alumnos por curso
                 elif opcion == "5":
-                    pass
+                    print('Ingrese curso y turno para listar los alumnos')
+                    alumnos.listar_alumnos()
+                    input('Presione Enter para volver al menu')
     
         #gestion cursos
         elif opcion == "3":
@@ -92,6 +94,7 @@ def menu_admin():
                 #modificar materia
                 elif opcion == "3":
                     materias.modificar_materia()
+                    
                 
 
 

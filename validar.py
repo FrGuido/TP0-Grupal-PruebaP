@@ -5,6 +5,11 @@ import materias
 import profesores
 import cursos
 
+
+def cargar_archivo_json(ruta,datos):
+    with open(ruta, "w", encoding="UTF-8") as j:
+        json.dump(datos, j, indent=2, ensure_ascii=False)
+
 #validacion dni simple
 def valid_formato_dni():
     while True:

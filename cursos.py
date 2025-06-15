@@ -1,5 +1,5 @@
 import validar
-import otros
+
 import menu_texto
 import alumnos
 import materias
@@ -41,7 +41,7 @@ def modificar_curso():
                         print("-" * 50)
                         i['materias'] = modificar_materias(i['materias'])
                 
-                otros.cargar_archivo_json(archivo, datos)
+                validar.cargar_archivo_json(archivo, datos)
 
 
     else:
@@ -111,6 +111,10 @@ def modificar_materias(lista):
 
 
 
+def buscar_curso():
+    curso = menu_texto.seleccion_curso()
+    turno = menu_texto.seleccion_turno()
+    return curso,turno
 
 
 

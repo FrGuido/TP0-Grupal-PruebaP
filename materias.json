@@ -36,5 +36,15 @@
       ]
     ],
     "codigo": "MA888"
+  },
+  {
+    "nombre": "Coca",
+    "profesores": [
+      [
+        22331144,
+        "Roncho"
+      ]
+    ],
+    "codigo": "RA983"
   }
 ]

@@ -1,6 +1,6 @@
 import validar
 import menu_texto
-import otros
+
 import cursos
 
 import json
@@ -60,7 +60,7 @@ def añadir_profesor():
 
         datos.append(cargar_esqueleto())
 
-        otros.cargar_archivo_json(archivo,datos)
+        validar.cargar_archivo_json(archivo,datos)
 
         print('='*50)
         input('Se ha ingresado correctamente al profesor\nPresione una tecla para continuar')
@@ -83,7 +83,7 @@ def buscar_profesor(dni):
 def modificar_profesor():
     if validar.valid_archivo(archivo):
         while True:
-            dni = otros.pedir_dni()
+            dni = validar.valid_formato_dni()
             prof = buscar_profesor(dni)
             if prof == None:
                 print('Desea intentarlo de nuevo?')
@@ -157,7 +157,7 @@ def modificar_profesor():
                         i['pasw'] = validar.valid_pasw()
                 break
 
-        otros.cargar_archivo_json(archivo,datos)
+        validar.cargar_archivo_json(archivo,datos)
     else:
         menu_texto.error_archivo()
 
@@ -179,7 +179,7 @@ def eliminar_profesor():
 
                     datos = list(filter(lambda x: x['dni'] != dni, datos))
                     
-                    otros.cargar_archivo_json(archivo,datos)
+                    validar.cargar_archivo_json(archivo,datos)
 
                     with open(cursos.archivo,"r",encoding="UTF-8") as j:
                         datos = json.load(j)

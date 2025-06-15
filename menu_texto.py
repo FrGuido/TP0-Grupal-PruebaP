@@ -3,6 +3,9 @@ import materias
 import profesores
 import json
 
+import validar
+import time
+import alumnos
 
 def bienvenida():
     print('\n'*10)
@@ -40,33 +43,32 @@ def opciones_principal(contador = 0):
     return opcion
 
 
-def opciones_profesores(contador = 0):
-    if contador <= 5:
-        opciones = 4
-        print()
-        print("---------------------------")
-        print("MENÚ PRINCIPAL > GESTION DE PROFESORES")
-        print("---------------------------")
-        print("[1] Añadir Profesores")
-        print("[2] Eliminar Profesor")
-        print("[3] Modificar Profesor")
-        print("[4] Lista Profesores")
-        print("---------------------------")
-        print("[0] Volver al menú anterior")
-        print("---------------------------")
-        print()
+def opciones_profesores(intentos = 0, max_intentos = 5):
+    opciones = 4
+    print()
+    print("---------------------------")
+    print("MENÚ PRINCIPAL > GESTION DE PROFESORES")
+    print("---------------------------")
+    print("[1] Añadir Profesores")
+    print("[2] Eliminar Profesor")
+    print("[3] Modificar Profesor")
+    print("[4] Lista Profesores")
+    print("---------------------------")
+    print("[0] Volver al menú anterior")
+    print("---------------------------")
+    print()
 
-        opcion = input("Seleccione una opción: ")
-        if opcion in [str(i) for i in range(0, opciones + 1)]:
-            return opcion
-        else:
-            print()
-            input("Opción inválida. Presione ENTER para volver a seleccionar.")
-            return opciones_profesores(contador + 1)
+    opcion = input("Seleccione una opción: ")
+    if opcion in [str(i) for i in range(0, opciones + 1)]:
+        return opcion
     else:
-        print('Ha ingresado demasiadas veces una opcion erronea, volvera al menu anteriro')
-        input('Ingrese Enter para continuar')
-        return '0'      
+        intentos += 1
+        if intentos >= max_intentos:
+            print("\nSe superó el número máximo de intentos. Volviendo al menú anterior.")
+            return "0"
+        print()
+        input("Opción inválida. Presione ENTER para volver a seleccionar.")
+        return opciones_profesores(intentos)  
         
 
 def opciones_alumno():
@@ -104,8 +106,6 @@ def opciones_materias():
         print("[1] Añadir Materia")
         print("[2] Eliminar Materia")
         print("[3] Modificar Materia")
-        print("[4] Modificar Notas Alumno")
-        print("[5] Listar Alumnos Curso")
         print("---------------------------")
         print("[0] Volver al menú anterior")
         print("---------------------------")
@@ -144,19 +144,16 @@ def opcion_modificar_profesor():
 
 def opcion_modificar_alumno():
     while True:
-        opciones = 10
+        opciones = 7
         print(f'Que desea modificar?')
         print("---------------------------")
         print("[1] Nombre")
         print("[2] Apellido")
         print("[3] Fecha de Nacimiento")
         print("[4] DNI")
-        print("[5] Etapa")
-        print("[6] Curso")
-        print("[7] Turno")
-        print("[8] Mail")
-        print("[9] Telefono")
-        print("[10] Contraseña")
+        print("[5] Mail")
+        print("[6] Telefono")
+        print("[7] Contraseña")
         print("---------------------------")
         print("[0] Salir")
         print("---------------------------")
@@ -337,6 +334,7 @@ def seleccion_curso():
             print('Ingrese una opcion valida\n-----------\n')
 
 
+"""
 def seleccion_etapa():
     while True:
         print('Que etapa desea?')
@@ -351,6 +349,143 @@ def seleccion_etapa():
             return 'Secundario'
         else:
             print('Ingrese un valor valido, intente de nuevo\n-----------\n')
+"""
+
+def eleccion_notas():
+    while True:
+        opciones = 2
+        print('Que desea hacer?')
+        print('-'*15)
+        print('[1] Añadir Nota')
+        print('[2] Editar Nota')
+        print('-'*15)
+        opcion = input("Seleccione una opción: ")
+        if opcion in [str(i) for i in range(0, opciones + 1)]:
+            return opcion
+        else:
+            input("Opción inválida. Presione ENTER para volver a seleccionar.")
+
+
+# profesor(nombre - dni), curso, turno, alumno, nota, fecha
+def añadir_nota(alumno):
+    nota = []
+    valid = False
+    with open(profesores.archivo, "r", encoding="UTF-8") as j:
+        datos = json.load(j)
+    with open(cursos.archivo, "r", encoding="UTF-8") as j:
+        c = json.load(j)
+
+    if datos:
+        while True:
+            for i in c:
+                for j in i['alumnos']:
+                    if j['dni'] == alumno['dni']:
+                        valid = True
+                        curso = i['nombre']
+                        turno = i['turno']
+                        break
+                if valid:
+                    break                   
+
+            if not valid:
+                print('Desea intentarlo de nuevo?')
+                vl = confirmacion_user()
+                if vl == 'n':
+                    return
+            else:
+                valid = False
+                break
+        for i in datos:
+            imprimir_dic(i)
+        while True:
+            print('Ingrese el dni del profesor a cargo de la nota')
+            profdni = validar.valid_formato_dni()
+            for i in datos:
+                if profdni == i['dni']:
+                    nota.append(f'{i['nombre']} - {i['dni']}')
+                    valid = True
+                    break
+            if not valid:
+                print('Profesor no encontrado, intente nuevamente')
+            else:
+                valid = False
+                break
+        instancia = alumnos.pedir_instancia()
+        with open(alumnos.notas,"r",encoding="utf-8") as csv:
+            datos = csv.readline().strip()
+            while datos:
+                if datos.split(',')[0].split(" - ")[1] == profdni and datos.split(',')[3].split(" - ")[1] == alumno['dni'] and datos.split(',')[5] == instancia:
+                    print('No se puede crear, ya que ya existe')
+                    return
+                datos = csv.readline().strip()
+            nota.append(curso)
+            nota.append(turno)
+            nota.append(f"{alumno['nombre']} - {alumno['dni']}")
+            nota.append(str(alumnos.pedir_nota()))
+            nota.append(instancia)
+            nota.append(f'{time.ctime(time.time())}')
+
+        with open(alumnos.notas,"a",encoding="utf-8") as csv:
+            csv.write(','.join(nota)+"\n")
+    else:
+        print('No hay profesores/alumnos para crear una nota')
+
+
+
+def editar_nota(alumno):
+    nueva_lista = []
+    valid = False
+    with open(profesores.archivo, "r", encoding="UTF-8") as j:
+        datos = json.load(j)
+    with open(cursos.archivo, "r", encoding="UTF-8") as j:
+        c = json.load(j)
+
+    if datos:
+        while True:
+            for i in c:
+                for j in i['alumnos']:
+                    if j['dni'] == alumno['dni']:
+                        valid = True
+
+            if not valid:
+                print('Desea intentarlo de nuevo?')
+                vl = confirmacion_user()
+                if vl == 'n':
+                    return
+            else:
+                valid = False
+                break
+        for i in datos:
+            imprimir_dic(i)
+        while True:
+            print('Ingrese el dni del profesor a cargo de la nota')
+            profdni = validar.valid_formato_dni()
+            for i in datos:
+                if profdni == i['dni']:
+                    valid = True
+                    break
+            if not valid:
+                print('Profesor no encontrado, intente nuevamente')
+            else:
+                break
+        instancia = alumnos.pedir_instancia()
+        with open(alumnos.notas, "r", encoding="utf-8") as archivo:
+            arch = archivo.readline().strip()
+            while arch:
+                campos = arch.split(",")
+                if campos[0].split(" - ")[1] == profdni and campos[3].split(" - ")[1] == alumno['dni'] and campos[5] == instancia:
+                    campos[4] = str(alumnos.pedir_nota())
+                    campos[6] = time.ctime(time.time())
+                    arch = ",".join(campos)
+                    valid = True
+                nueva_lista.append(arch + "\n")
+                arch = archivo.readline().strip()
+
+            if not valid:
+                print('El alumno no tiene notas creadas de esas caracteristicas, cree una para poder editarla')
+        with open(alumnos.notas, "w", encoding="utf-8") as c:
+            c.writelines(nueva_lista)
+
 
 
 

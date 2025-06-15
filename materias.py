@@ -1,6 +1,6 @@
 import validar
 import menu_texto
-import otros
+
 
 
 import json
@@ -40,7 +40,7 @@ def crear_materia():
         
         datos.append(cargar_esqueleto())
 
-        otros.cargar_archivo_json(archivo, datos)
+        validar.cargar_archivo_json(archivo, datos)
         print('='*50)
         input('Se ha ingresado correctamente la materia\nPresione una tecla para continuar')
 
@@ -66,7 +66,7 @@ def modificar_materia():
                             opcion = menu_texto.opcion_modificar_materia()
 
                             if opcion == '0':
-                                otros.cargar_archivo_json(archivo,datos)
+                                validar.cargar_archivo_json(archivo,datos)
                                 return
 
                             elif opcion == '1':
@@ -228,7 +228,7 @@ def elimiar_materia():
                         print('Seguro que desea eliminarla?')
                         if menu_texto.confirmacion_user() == 's':
                             datos = list(filter(lambda x : x['codigo'] != cod, datos))
-                            otros.cargar_archivo_json(archivo,datos)
+                            validar.cargar_archivo_json(archivo,datos)
                         else:
                             return
     else:

@@ -1,5 +1,6 @@
 import menu_texto
 import validar
+import registro
 
 import cursos
 import materias
@@ -62,7 +63,9 @@ def añadir_alumno():
                 turno = menu_texto.seleccion_turno()
                 for i in datos:
                     if curso == i['nombre'] and turno == i['turno']:
-                        i['alumnos'].append(cargar_esqueleto())
+                        alumno = cargar_esqueleto()
+                        i['alumnos'].append(alumno)
+                        registro.registrar_agregado("Alumno", alumno['nombre'], alumno['apellido'], alumno['dni'])
                         break
                 validar.cargar_archivo_json(cursos.archivo,datos)
                 print('='*50)

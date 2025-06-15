@@ -44,7 +44,7 @@ def opciones_principal(contador = 0):
 
 
 def opciones_profesores(intentos = 0, max_intentos = 5):
-    opciones = 4
+    opciones = 5
     print()
     print("---------------------------")
     print("MENÚ PRINCIPAL > GESTION DE PROFESORES")
@@ -53,6 +53,7 @@ def opciones_profesores(intentos = 0, max_intentos = 5):
     print("[2] Eliminar Profesor")
     print("[3] Modificar Profesor")
     print("[4] Lista Profesores")
+    print("[5] Busar datos Profesor")
     print("---------------------------")
     print("[0] Volver al menú anterior")
     print("---------------------------")
@@ -73,7 +74,7 @@ def opciones_profesores(intentos = 0, max_intentos = 5):
 
 def opciones_alumno():
     while True:
-        opciones = 5
+        opciones = 6
         print()
         print("---------------------------")
         print("MENÚ PRINCIPAL > GESTION DE ALUMNOS")
@@ -83,6 +84,7 @@ def opciones_alumno():
         print("[3] Modificar Alumno")
         print("[4] Modificar Notas Alumno")
         print("[5] Listar Alumnos Curso")
+        print("[6] Buscar datos alumno")
         print("---------------------------")
         print("[0] Volver al menú anterior")
         print("---------------------------")
@@ -366,7 +368,7 @@ def eleccion_notas():
             input("Opción inválida. Presione ENTER para volver a seleccionar.")
 
 
-# profesor(nombre - dni), curso, turno, alumno, nota, fecha
+# profesor(nombre - dni), curso, turno, alumno, nota, instancia,fecha
 def añadir_nota(alumno):
     nota = []
     valid = False

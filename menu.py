@@ -3,6 +3,7 @@ import profesores
 import alumnos
 import materias
 import cursos
+import validar
 
 
 
@@ -40,6 +41,9 @@ def menu_admin():
                 #lista profesores
                 elif opcion == "4":
                     profesores.listar_profesores()
+                
+                elif opcion == "5":
+                    menu_texto.imprimir_dic(profesores.buscar_profesor(validar.valid_formato_dni))
 
         #gestion alumnos
         elif opcion == "2":
@@ -70,6 +74,11 @@ def menu_admin():
                     print('Ingrese curso y turno para listar los alumnos')
                     alumnos.listar_alumnos()
                     input('Presione Enter para volver al menu')
+
+                #buscar alumno
+                elif opcion == "6":
+                    menu_texto.imprimir_dic(alumnos.buscar_alumno(validar.valid_formato_dni))
+
     
         #gestion cursos
         elif opcion == "3":

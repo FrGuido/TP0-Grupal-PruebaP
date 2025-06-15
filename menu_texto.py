@@ -2,6 +2,7 @@ import cursos
 import materias
 import profesores
 import json
+import registro
 
 import validar
 import time
@@ -429,6 +430,7 @@ def añadir_nota(alumno):
 
         with open(alumnos.notas,"a",encoding="utf-8") as csv:
             csv.write(','.join(nota)+"\n")
+        registro.registrar_agregado("Nota", nota[0], nota[3],nota[4])
     else:
         print('No hay profesores/alumnos para crear una nota')
 
@@ -480,6 +482,7 @@ def editar_nota(alumno):
                     campos[6] = time.ctime(time.time())
                     arch = ",".join(campos)
                     valid = True
+                    registro.registrar_modificado("Nota", campos[0], campos[3],campos[4])
                 nueva_lista.append(arch + "\n")
                 arch = archivo.readline().strip()
 

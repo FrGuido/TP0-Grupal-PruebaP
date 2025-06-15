@@ -168,6 +168,8 @@ def modificar_alumno():
                             print(f"{"» Introduzca su nueva Contraseña «".center(50)}")
                             print("-" * 50)
                             j['pasw'] = validar.valid_pasw()
+                    
+                    registro.registrar_modificado("Alumno", j['nombre'],j['apellido'],j['dni'])
                     break
 
         validar.cargar_archivo_json(cursos.archivo,datos)
@@ -193,6 +195,7 @@ def eliminar_alumno():
                             print('\nSeguro que desea eliminar este elemento?\n')
                             seg = menu_texto.confirmacion_user()
                             if seg == 's':
+                                registro.registrar_eliminado("Alumno", j['nombre'],j['apellido'],j['dni'])
                                 i['alumnos'] = list(filter(lambda x: x['dni'] != dni, i['alumnos']))
                                 validar.cargar_archivo_json(cursos.archivo,datos)
                                 print('='*50)

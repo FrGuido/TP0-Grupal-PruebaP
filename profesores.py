@@ -2,6 +2,7 @@ import validar
 import menu_texto
 
 import cursos
+import registro
 
 import json
 
@@ -57,8 +58,11 @@ def añadir_profesor():
 
             except json.JSONDecodeError:
                 datos = []
+        
+        profe = cargar_esqueleto()
+        datos.append(profe)
+        registro.registrar_agregado("Profesor", profe['nombre'],profe['apellido'],profe['dni'])
 
-        datos.append(cargar_esqueleto())
 
         validar.cargar_archivo_json(archivo,datos)
 
@@ -155,6 +159,8 @@ def modificar_profesor():
                         print(f"{"» Introduzca su nueva Contraseña «".center(50)}")
                         print("-" * 50)
                         i['pasw'] = validar.valid_pasw()
+
+                registro.registrar_modificado("Profesor", i['nombre'],i['apellido'],i['dni'])
                 break
 
         validar.cargar_archivo_json(archivo,datos)
@@ -176,7 +182,10 @@ def eliminar_profesor():
                 if seg == 's':
                     with open(archivo,'r',encoding="UTF-8") as j:
                         datos = json.load(j)
-
+                    for i in datos:
+                        if i['dni'] == dni:
+                            registro.registrar_eliminado("Profesor", i['nombre'],i['apellido'],i['dni'])
+                            break
                     datos = list(filter(lambda x: x['dni'] != dni, datos))
                     
                     validar.cargar_archivo_json(archivo,datos)
@@ -189,12 +198,8 @@ def eliminar_profesor():
                             for g in j['profesores']:
                                 if dni in g:
                                     j.remove(g)
-                        
-
                     print('='*50)
                     print('Se ha eliminado correctamente al profesor')
-
-
                     break
 
                 else:

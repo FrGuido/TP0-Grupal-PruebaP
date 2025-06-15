@@ -1,5 +1,6 @@
 import validar
 import menu_texto
+import registro
 
 
 
@@ -37,8 +38,9 @@ def crear_materia():
                 datos = json.load(j)
             except json.JSONDecodeError:
                 datos = []
-        
-        datos.append(cargar_esqueleto())
+        mat = cargar_esqueleto()
+        registro.registrar_agregado("Materia", mat['nombre'],'--',mat['codigo'])
+        datos.append(mat)
 
         validar.cargar_archivo_json(archivo, datos)
         print('='*50)
@@ -66,6 +68,7 @@ def modificar_materia():
                             opcion = menu_texto.opcion_modificar_materia()
 
                             if opcion == '0':
+                                registro.registrar_modificado("Materia", i['nombre'],'--',i['codigo'])
                                 validar.cargar_archivo_json(archivo,datos)
                                 return
 
@@ -227,6 +230,7 @@ def elimiar_materia():
                         menu_texto.imprimir_dic(i)
                         print('Seguro que desea eliminarla?')
                         if menu_texto.confirmacion_user() == 's':
+                            registro.registrar_eliminado("Materia", i['nombre'],'--',i['codigo'])
                             datos = list(filter(lambda x : x['codigo'] != cod, datos))
                             validar.cargar_archivo_json(archivo,datos)
                         else:

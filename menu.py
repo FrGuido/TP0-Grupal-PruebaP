@@ -22,8 +22,10 @@ def login():
             if i['dni'] == dni:
                 print(f'Bienvenido profesor {i['nombre']} {i['apellido']}')
                 contra = input('Ingrese su contraseña, si la ha olvidado consulte con el admin\n>>')
-                while contra != i['pasw']:
-                    pass
+                while True:
+                    if contra == i['pasw']:
+                        
+                        break
 
 
 def menu_admin():

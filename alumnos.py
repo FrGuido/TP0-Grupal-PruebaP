@@ -33,11 +33,6 @@ def cargar_esqueleto():
     alu['dni'] = validar.valid_dni_inalu()
 
     print("\n" + "=" * 50)
-    print(f"{"» Introduzca su Turno «".center(50)}")
-    print("-" * 50)
-    alu['turno'] = menu_texto.seleccion_turno()
-
-    print("\n" + "=" * 50)
     print(f"{"» Introduzca un Telefono «".center(50)}")
     print(f"{"para la comunicacion con los padres".center(50)}")
     print("-" * 50)

@@ -24,8 +24,15 @@ def login():
                 contra = input('Ingrese su contraseña, si la ha olvidado consulte con el admin\n>>')
                 while True:
                     if contra == i['pasw']:
-                        
+                        print('Ha ingresado correctamente, bienvenido')
+                        menu_profesor()
                         break
+                    elif intentos == 1:
+                        print('Demasiados intentos, saliendo del programa')
+                        exit()
+                    else:
+                        intentos -= 1
+                        print(f'Contraseña incorrecta, le quedan {intentos} intentos')
 
 
 def menu_admin():
@@ -63,7 +70,9 @@ def menu_admin():
                     profesores.listar_profesores()
                 
                 elif opcion == "5":
-                    menu_texto.imprimir_dic(profesores.buscar_profesor(validar.valid_formato_dni))
+                    print('Ingrese el DNI del profesor a buscar')
+                    menu_texto.imprimir_dic(profesores.buscar_profesor(validar.valid_formato_dni()))
+                    input('Presione Enter para volver al menu anteriro')
 
         #gestion alumnos
         elif opcion == "2":

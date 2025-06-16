@@ -277,6 +277,21 @@ def pedir_instancia():
         return 'Final'
 
 
+def ver_notas_alumno(alumno):
+    with open('notas.csv','r',encoding="UtF-8") as csv:
+        datos = csv.readline().strip()
+        while datos:
+            campos = datos.split(',')
+            if campos[3].split(" - ")[1] == alumno['dni']:
+                print('='*20)
+                print(f'Profesor : {campos[3]}')
+                print(f'Nota : {campos[4]}')
+                print(f'Instancia : {campos[5]}')
+                print('='*20)
+            datos = csv.readline().strip()
+
+
+
 
 
 

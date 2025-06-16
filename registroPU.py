@@ -54,9 +54,17 @@ def leer_modificacionesPU():
                         print(f"""
 Acción     : {accion}
 Tipo       : {tipo}
-Alumno     : {campo_1}
-Profesor   : {campo_2}
+Profesor   : {campo_1}
+Alumno     : {campo_2}
 Nota       : {campo_3}
+Fecha      : {fecha}
+                        """)
+                    elif tipo == "Materia":
+                        print(f"""
+Acción     : {accion}
+Tipo       : {tipo}
+Materia    : {campo_1}
+Código     : {campo_3}
 Fecha      : {fecha}
                         """)
                     else:

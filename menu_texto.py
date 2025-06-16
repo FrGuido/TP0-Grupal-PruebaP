@@ -39,6 +39,29 @@ def opciones_principal_profesor(contador = 0):
     print()
     return opcion
 
+def opciones_principal_alumno(contador = 0):
+    if contador >= 5:
+        print("Demasiados intentos inválidos. Cerrando programa...")
+        exit()
+
+    opciones = 1
+    print()
+    print("-" * 26)
+    print("MENÚ PRINCIPAL")
+    print("-" * 26)
+    print("[1] Ver mis notas")
+    print("-" * 26)
+    print("[0] Salir del programa")
+    print("-" * 26)
+    print()
+
+    opcion = input("Seleccione una opción: ")
+    if opcion not in [str(i) for i in range(0, opciones + 1)]:
+        input("Opción inválida. Presione ENTER para volver a seleccionar.")
+        return opciones_principal_admin(contador + 1)
+    print()
+    return opcion
+
 def opciones_principal_admin(contador = 0):
     if contador >= 5:
         print("Demasiados intentos inválidos. Cerrando programa...")
@@ -396,78 +419,80 @@ def eleccion_notas():
 def añadir_nota(alumno = None, profe = None):
     nota = []
     valid = False
-    with open(profesores.archivo, "r", encoding="UTF-8") as j:
-        datos = json.load(j)
-    with open(cursos.archivo, "r", encoding="UTF-8") as j:
-        c = json.load(j)
+    try:
+        with open(profesores.archivo, "r", encoding="UTF-8") as j:
+            datos = json.load(j)
+        with open(cursos.archivo, "r", encoding="UTF-8") as j:
+            c = json.load(j)
 
-    if datos:
-        while True:
-            if alumno == None:
-                print('Ingrese el dni del alumno a cargo de la nota')
-                aludni = validar.valid_formato_dni()
-                alumno = alumnos.buscar_alumno(aludni)
+        if datos:
+            while True:
+                if alumno == None:
+                    print('Ingrese el dni del alumno a cargo de la nota')
+                    aludni = validar.valid_formato_dni()
+                    alumno = alumnos.buscar_alumno(aludni)
 
-            for i in c:
-                for j in i['alumnos']:
-                    if j['dni'] == alumno['dni']:
-                        valid = True
-                        curso = i['nombre']
-                        turno = i['turno']
-                        break
-                if valid:
-                    break                   
+                for i in c:
+                    for j in i['alumnos']:
+                        if j['dni'] == alumno['dni']:
+                            valid = True
+                            curso = i['nombre']
+                            turno = i['turno']
+                            break
+                    if valid:
+                        break                   
 
-            if not valid:
-                print('Desea intentarlo de nuevo?')
-                vl = confirmacion_user()
-                if vl == 'n':
-                    return
-            else:
-                valid = False
-                break
-        for i in datos:
-            imprimir_dic(i)
-        while True:
-            if profe == None:
-                print('Ingrese el dni del profesor a cargo de la nota')
-                profdni = validar.valid_formato_dni()
-                for i in datos:
-                    if profdni == i['dni']:
-                        nota.append(f'{i['nombre']} - {i['dni']}')
-                        valid = True
-                        break
-            else:
-                nota.append(f'{profe['nombre']} - {profe['dni']}')
-                valid = True
-                break
+                if not valid:
+                    print('Desea intentarlo de nuevo?')
+                    vl = confirmacion_user()
+                    if vl == 'n':
+                        return
+                else:
+                    valid = False
+                    break
+            for i in datos:
+                imprimir_dic(i)
+            while True:
+                if profe == None:
+                    print('Ingrese el dni del profesor a cargo de la nota')
+                    profdni = validar.valid_formato_dni()
+                    for i in datos:
+                        if profdni == i['dni']:
+                            nota.append(f'{i['nombre']} - {i['dni']}')
+                            valid = True
+                            break
+                else:
+                    nota.append(f'{profe['nombre']} - {profe['dni']}')
+                    valid = True
+                    break
 
-            if not valid:
-                print('Profesor no encontrado, intente nuevamente')
-            else:
-                valid = False
-                break
-        instancia = alumnos.pedir_instancia()
-        with open(alumnos.notas,"r",encoding="utf-8") as csv:
-            datos = csv.readline().strip()
-            while datos:
-                if datos.split(',')[0].split(" - ")[1] == profdni and datos.split(',')[3].split(" - ")[1] == alumno['dni'] and datos.split(',')[5] == instancia:
-                    print('No se puede crear, ya que ya existe')
-                    return
+                if not valid:
+                    print('Profesor no encontrado, intente nuevamente')
+                else:
+                    valid = False
+                    break
+            instancia = alumnos.pedir_instancia()
+            with open(alumnos.notas,"r",encoding="utf-8") as csv:
                 datos = csv.readline().strip()
-            nota.append(curso)
-            nota.append(turno)
-            nota.append(f"{alumno['nombre']} - {alumno['dni']}")
-            nota.append(str(alumnos.pedir_nota()))
-            nota.append(instancia)
-            nota.append(f'{time.ctime(time.time())}')
+                while datos:
+                    if datos.split(',')[0].split(" - ")[1] == profdni and datos.split(',')[3].split(" - ")[1] == alumno['dni'] and datos.split(',')[5] == instancia:
+                        print('No se puede crear, ya que ya existe')
+                        return
+                    datos = csv.readline().strip()
+                nota.append(curso)
+                nota.append(turno)
+                nota.append(f"{alumno['nombre']} - {alumno['dni']}")
+                nota.append(str(alumnos.pedir_nota()))
+                nota.append(instancia)
+                nota.append(f'{time.ctime(time.time())}')
 
-        with open(alumnos.notas,"a",encoding="utf-8") as csv:
-            csv.write(','.join(nota)+"\n")
-        registro.registrar_agregado("Nota", nota[0], nota[3],nota[4])
-    else:
-        print('No hay profesores/alumnos para crear una nota')
-
+            with open(alumnos.notas,"a",encoding="utf-8") as csv:
+                csv.write(','.join(nota)+"\n")
+            registro.registrar_agregado("Nota", nota[0], nota[3],nota[4])
+        else:
+            print('No hay profesores/alumnos para crear una nota')
+    except:
+        error_archivo()
 
 
 def editar_nota(alumno = None, profe = None):

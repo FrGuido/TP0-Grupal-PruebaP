@@ -16,23 +16,48 @@ def login():
     print('Ingrese su dni')
     dni = input(validar.valid_formato_dni())
     if dni != login_admin:
-        with open(profesores.archivo,"r",encoding="UTF-8") as j:
-            datos = json.load(j)
-        for i in datos:
-            if i['dni'] == dni:
-                print(f'Bienvenido profesor {i['nombre']} {i['apellido']}')
-                contra = input('Ingrese su contraseña, si la ha olvidado consulte con el admin\n>>')
-                while True:
-                    if contra == i['pasw']:
-                        print('Ha ingresado correctamente, bienvenido')
-                        menu_profesor()
-                        break
-                    elif intentos == 1:
-                        print('Demasiados intentos, saliendo del programa')
-                        exit()
-                    else:
-                        intentos -= 1
-                        print(f'Contraseña incorrecta, le quedan {intentos} intentos')
+        try:
+            with open(profesores.archivo,"r",encoding="UTF-8") as j:
+                datos = json.load(j)
+            for i in datos:
+                if i['dni'] == dni:
+                    print(f'Bienvenido profesor {i['nombre']} {i['apellido']}')
+                    contra = input('Ingrese su contraseña, si la ha olvidado consulte con el admin\n>>')
+                    while True:
+                        if contra == i['pasw']:
+                            print('Ha ingresado correctamente, bienvenido')
+                            menu_profesor()
+                            break
+                        elif intentos == 1:
+                            print('Demasiados intentos, saliendo del programa')
+                            exit()
+                        else:
+                            intentos -= 1
+                            print(f'Contraseña incorrecta, le quedan {intentos} intentos')
+                    break
+            
+            with open(cursos.archivo,"r",encoding="UTF-8") as j:
+                datos = json.load(j)
+            
+            for i in datos:
+                for j in i['alumnos']:
+                    if j['dni'] == dni:
+                        print(f'Bienvenido alumno {j['nombre']} {j['apellido']}')
+                    contra = input('Ingrese su contraseña, si la ha olvidado consulte con el admin\n>>')
+                    while True:
+                        if contra == j['pasw']:
+                            print('Ha ingresado correctamente, bienvenido')
+                            menu_alumno()
+                            break
+                        elif intentos == 1:
+                            print('Demasiados intentos, saliendo del programa')
+                            exit()
+                        else:
+                            intentos -= 1
+                            print(f'Contraseña incorrecta, le quedan {intentos} intentos')
+                    break
+        except:
+            menu_texto.error_archivo()            
 
 
 def menu_admin():

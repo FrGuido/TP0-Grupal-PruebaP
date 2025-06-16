@@ -202,7 +202,7 @@ def eliminar_profesor():
                                     j.remove(g)
                     print('='*50)
                     print('Se ha eliminado correctamente al profesor')
-                    break
+                    return
 
                 else:
                     break
@@ -211,6 +211,7 @@ def eliminar_profesor():
                 print('Ingrese numeros\n--------------')
 
         input('Volviendo al menu inicial, presione Enter para continuar')
+        return
     else:
         menu_texto.error_archivo()
 

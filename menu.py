@@ -8,7 +8,7 @@ import registro
 import json
 
 
-login_admin = 11111111
+login_admin = 99999999
 contraseña_admin = "admin"
 
 def login():
@@ -145,7 +145,7 @@ def menu_admin():
 
                 #buscar alumno
                 elif opcion == "6":
-                    print('Ingrese el DNI del profesor a buscar')
+                    print('Ingrese el DNI del alumno a buscar')
                     menu_texto.imprimir_dic(alumnos.buscar_alumno(validar.valid_formato_dni()))
                     input('Presione Enter para volver al menu anterior')
     
@@ -186,6 +186,7 @@ def menu_profesor(profe):
         #Ver mis materias
         elif opcion == "1":
             profesores.ver_materias_profe(profe)
+            input('Presione Enter para continuar')
 
         #Modificar Notas
         elif opcion == "2":

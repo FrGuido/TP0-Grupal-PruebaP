@@ -1,5 +1,6 @@
 import validar
 import menu_texto
+import materias
 
 import cursos
 import registro
@@ -223,6 +224,14 @@ def listar_profesores():
     input('Ingrese enter para volver al menu anterior')
 
 
+def ver_materias_profe(profe):
+    with open(materias.archivo,'r',encoding="UTF-8") as j:
+        datos = json.load(j)
+    
+    for i in datos:
+        for j in i['profesores']:
+            if profe['dni'] in j:
+                menu_texto.imprimir_dic(i)
 
 
 

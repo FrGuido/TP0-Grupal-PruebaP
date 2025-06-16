@@ -206,7 +206,7 @@ def eliminar_alumno():
     else:
         menu_texto.error_archivo()
 
-def modificar_notas():
+def modificar_notas(profe = None):
     if validar.valid_archivo(cursos.archivo):
         while True:
             print('Ingrese el dni del alumno el cual quiere modificar sus notas')
@@ -227,9 +227,9 @@ def modificar_notas():
         if opcion == '0':
             return
         elif opcion == '1':
-            menu_texto.añadir_nota(alu)
+            menu_texto.añadir_nota(alu,profe)
         elif opcion == '2':
-            menu_texto.editar_nota(alu)
+            menu_texto.editar_nota(alu,profe)
     else:
         menu_texto.error_archivo()
     input('Volviendo al menu inicial, presione enter')

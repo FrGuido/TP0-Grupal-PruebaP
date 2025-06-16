@@ -15,8 +15,32 @@ def bienvenida():
     print(f'{"Grupo 10":^58}')
     print(f'{" - "*15:^58}')
 
+def opciones_principal_profesor(contador = 0):
+    if contador >= 5:
+        print("Demasiados intentos inválidos. Cerrando programa...")
+        exit()
 
-def opciones_principal(contador = 0):
+    opciones = 3
+    print()
+    print("-" * 26)
+    print("MENÚ PRINCIPAL")
+    print("-" * 26)
+    print("[1] Ver mis materias")
+    print("[2] Modificar Notas Alumnos")
+    print("[3] Ver mis alumnos")
+    print("-" * 26)
+    print("[0] Salir del programa")
+    print("-" * 26)
+    print()
+
+    opcion = input("Seleccione una opción: ")
+    if opcion not in [str(i) for i in range(0, opciones + 1)]:
+        input("Opción inválida. Presione ENTER para volver a seleccionar.")
+        return opciones_principal_admin(contador + 1)
+    print()
+    return opcion
+
+def opciones_principal_admin(contador = 0):
     if contador >= 5:
         print("Demasiados intentos inválidos. Cerrando programa...")
         exit()
@@ -39,7 +63,7 @@ def opciones_principal(contador = 0):
     opcion = input("Seleccione una opción: ")
     if opcion not in [str(i) for i in range(0, opciones + 1)]:
         input("Opción inválida. Presione ENTER para volver a seleccionar.")
-        return opciones_principal(contador + 1)
+        return opciones_principal_admin(contador + 1)
     print()
     return opcion
 

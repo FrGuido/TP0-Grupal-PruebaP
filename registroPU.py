@@ -32,7 +32,7 @@ def registrar_modificadoPU(tipo, nombre, apellido, dni):
 
 def leer_modificacionesPU():
     try:
-        with open("RegistroPU.txt", "r") as archivo:
+        with open("RegistroPU.txt", "r", encoding="utf-8") as archivo:
             contenido = archivo.readlines()
             for linea in contenido:
                 linea = linea.strip()
@@ -45,19 +45,29 @@ def leer_modificacionesPU():
                 if len(partes) == 6:
                     accion   = partes[0].strip().strip("'")
                     tipo     = partes[1].strip().strip("'")
-                    nombre   = partes[2].strip().strip("'")
-                    apellido = partes[3].strip().strip("'")
-                    dni      = partes[4].strip()
+                    campo_1  = partes[2].strip().strip("'")
+                    campo_2  = partes[3].strip().strip("'")
+                    campo_3  = partes[4].strip().strip("'")
                     fecha    = partes[5].strip().strip("'")
 
-                    print(f"""
+                    if tipo == "Nota":
+                        print(f"""
 Acción     : {accion}
 Tipo       : {tipo}
-Nombre     : {nombre}
-Apellido   : {apellido}
-DNI        : {dni}
+Alumno     : {campo_1}
+Profesor   : {campo_2}
+Nota       : {campo_3}
 Fecha      : {fecha}
-                    """)
+                        """)
+                    else:
+                        print(f"""
+Acción     : {accion}
+Tipo       : {tipo}
+Nombre     : {campo_1}
+Apellido   : {campo_2}
+DNI        : {campo_3}
+Fecha      : {fecha}
+                        """)
                 else:
                     print(f"Línea malformada: {linea}")
     except FileNotFoundError:

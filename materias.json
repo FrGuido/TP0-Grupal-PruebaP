@@ -46,5 +46,15 @@
       ]
     ],
     "codigo": "RA983"
+  },
+  {
+    "nombre": "Matematica",
+    "profesores": [
+      [
+        44556677,
+        "Ufjydt"
+      ]
+    ],
+    "codigo": "OP112"
   }
 ]

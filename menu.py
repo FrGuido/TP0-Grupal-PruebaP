@@ -8,13 +8,13 @@ import registro
 import json
 
 
-login_admin = "11111111"
+login_admin = 11111111
 contraseña_admin = "admin"
 
 def login():
     intentos = 4
     print('Ingrese su dni')
-    dni = input(validar.valid_formato_dni())
+    dni = validar.valid_formato_dni()
     if dni != login_admin:
         try:
             with open(profesores.archivo,"r",encoding="UTF-8") as j:
@@ -26,7 +26,7 @@ def login():
                     while True:
                         if contra == i['pasw']:
                             print('Ha ingresado correctamente, bienvenido')
-                            menu_profesor()
+                            menu_profesor(i)
                             break
                         elif intentos == 1:
                             print('Demasiados intentos, saliendo del programa')
@@ -47,7 +47,7 @@ def login():
                     while True:
                         if contra == j['pasw']:
                             print('Ha ingresado correctamente, bienvenido')
-                            menu_alumno()
+                            menu_alumno(j)
                             break
                         elif intentos == 1:
                             print('Demasiados intentos, saliendo del programa')
@@ -58,13 +58,27 @@ def login():
                     break
         except:
             menu_texto.error_archivo()            
+    else:
+        print(f'Bienvenido admin')
+        while True:
+            contra = input('Ingrese su contraseña\n>>')
+            if contra == contraseña_admin:
+                menu_admin()
+                break
+            elif intentos == 1:
+                print('Demasiados intentos, saliendo del programa')
+                exit()
+            else:
+                intentos -= 1
+                print('Contraseña incorrecta, intente nuevamente')
+
 
 
 def menu_admin():
     while True:
 
         #menu principal admin
-        opcion = menu_texto.opciones_principal()
+        opcion = menu_texto.opciones_principal_admin()
 
         #salir del programa
         if opcion == "0":
@@ -161,10 +175,25 @@ def menu_admin():
 
         elif opcion == '5':
             registro.leer_modificaciones()
+            input('Presione Enter para volver')
 
 
-def menu_profesor():
-    pass
+def menu_profesor(profe):
+    while True:
+        opcion = menu_texto.opciones_principal_profesor()
+        if opcion == "0":
+            break
+        #Ver mis materias
+        elif opcion == "1":
+            profesores.ver_materias_profe(profe)
+
+        #Modificar Notas
+        elif opcion == "2":
+            materias.elimiar_materia()
+
+        #Ver Mis Notas
+        elif opcion == "3":
+            materias.modificar_materia()
 
 def menu_alumno():
     pass

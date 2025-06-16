@@ -233,6 +233,7 @@ def elimiar_materia():
                             registro.registrar_eliminado("Materia", i['nombre'],'--',i['codigo'])
                             datos = list(filter(lambda x : x['codigo'] != cod, datos))
                             validar.cargar_archivo_json(archivo,datos)
+                            return
                         else:
                             return
     else:

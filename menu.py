@@ -110,7 +110,11 @@ def menu_admin():
                 
                 elif opcion == "5":
                     print('Ingrese el DNI del profesor a buscar')
-                    menu_texto.imprimir_dic(profesores.buscar_profesor(validar.valid_formato_dni()))
+                    a = profesores.buscar_profesor(validar.valid_formato_dni())
+                    if a == None:
+                        print('No existe ese profesor')
+                    else:
+                        menu_texto.imprimir_dic(a)
                     input('Presione Enter para volver al menu anteriro')
 
         #gestion alumnos
@@ -146,7 +150,11 @@ def menu_admin():
                 #buscar alumno
                 elif opcion == "6":
                     print('Ingrese el DNI del alumno a buscar')
-                    menu_texto.imprimir_dic(alumnos.buscar_alumno(validar.valid_formato_dni()))
+                    a = alumnos.buscar_alumno(validar.valid_formato_dni())
+                    if a == None:
+                        print('No existe ese alumno')
+                    else:
+                        menu_texto.imprimir_dic(a)
                     input('Presione Enter para volver al menu anterior')
     
         #gestion cursos

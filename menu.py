@@ -189,14 +189,16 @@ def menu_profesor(profe):
 
         #Modificar Notas
         elif opcion == "2":
-            materias.elimiar_materia()
+            alumnos.modificar_notas(profe)
 
-        #Ver Mis Notas
-        elif opcion == "3":
-            materias.modificar_materia()
-
-def menu_alumno():
-    pass
+def menu_alumno(alumno):
+    while True:
+        opcion = menu_texto.opciones_principal_alumno()
+        if opcion == "0":
+            break
+        #Ver mis notas
+        elif opcion == "1":
+            alumnos.ver_notas_alumno(alumno)
                 
 
 

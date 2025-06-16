@@ -245,5 +245,3 @@ def ver_materias_profe(profe):
 
 
 
-
-

@@ -20,14 +20,13 @@ def opciones_principal_profesor(contador = 0):
         print("Demasiados intentos inválidos. Cerrando programa...")
         exit()
 
-    opciones = 3
+    opciones = 2
     print()
     print("-" * 26)
     print("MENÚ PRINCIPAL")
     print("-" * 26)
     print("[1] Ver mis materias")
     print("[2] Modificar Notas Alumnos")
-    print("[3] Ver mis alumnos")
     print("-" * 26)
     print("[0] Salir del programa")
     print("-" * 26)
@@ -394,7 +393,7 @@ def eleccion_notas():
 
 
 # profesor(nombre - dni), curso, turno, alumno, nota, instancia,fecha
-def añadir_nota(alumno):
+def añadir_nota(alumno = None, profe = None):
     nota = []
     valid = False
     with open(profesores.archivo, "r", encoding="UTF-8") as j:
@@ -404,6 +403,11 @@ def añadir_nota(alumno):
 
     if datos:
         while True:
+            if alumno == None:
+                print('Ingrese el dni del alumno a cargo de la nota')
+                aludni = validar.valid_formato_dni()
+                alumno = alumnos.buscar_alumno(aludni)
+
             for i in c:
                 for j in i['alumnos']:
                     if j['dni'] == alumno['dni']:
@@ -425,13 +429,19 @@ def añadir_nota(alumno):
         for i in datos:
             imprimir_dic(i)
         while True:
-            print('Ingrese el dni del profesor a cargo de la nota')
-            profdni = validar.valid_formato_dni()
-            for i in datos:
-                if profdni == i['dni']:
-                    nota.append(f'{i['nombre']} - {i['dni']}')
-                    valid = True
-                    break
+            if profe == None:
+                print('Ingrese el dni del profesor a cargo de la nota')
+                profdni = validar.valid_formato_dni()
+                for i in datos:
+                    if profdni == i['dni']:
+                        nota.append(f'{i['nombre']} - {i['dni']}')
+                        valid = True
+                        break
+            else:
+                nota.append(f'{profe['nombre']} - {profe['dni']}')
+                valid = True
+                break
+
             if not valid:
                 print('Profesor no encontrado, intente nuevamente')
             else:
@@ -460,7 +470,7 @@ def añadir_nota(alumno):
 
 
 
-def editar_nota(alumno):
+def editar_nota(alumno = None, profe = None):
     nueva_lista = []
     valid = False
     with open(profesores.archivo, "r", encoding="UTF-8") as j:
@@ -470,6 +480,10 @@ def editar_nota(alumno):
 
     if datos:
         while True:
+            if alumno == None:
+                print('Ingrese el dni del alumno a cargo de la nota')
+                aludni = validar.valid_formato_dni()
+                alumno = alumnos.buscar_alumno(aludni)
             for i in c:
                 for j in i['alumnos']:
                     if j['dni'] == alumno['dni']:
@@ -486,12 +500,17 @@ def editar_nota(alumno):
         for i in datos:
             imprimir_dic(i)
         while True:
-            print('Ingrese el dni del profesor a cargo de la nota')
-            profdni = validar.valid_formato_dni()
-            for i in datos:
-                if profdni == i['dni']:
-                    valid = True
-                    break
+            if profe == None:
+                print('Ingrese el dni del profesor a cargo de la nota')
+                profdni = validar.valid_formato_dni()
+                for i in datos:
+                    if profdni == i['dni']:
+                        valid = True
+                        break
+            else:
+                profdni = profe['dni']
+                valid = True
+
             if not valid:
                 print('Profesor no encontrado, intente nuevamente')
             else:
